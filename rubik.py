@@ -1,52 +1,78 @@
+from numpy import array
+
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
-    def __init__(self, new_cell_factory):
-        self.new_cell_factory = new_cell_factory
-        self.populate_cells()
+    def __init__(self, tetra_factory, octa_factory):
+        self.tetra_factory = tetra_factory
+        self.octa_factory = octa_factory
+        self.__cell_map = {}
+        self.__create_cells()
+        self.__create_rotations()
 
-    def create_cells(self, new_cell_factory):
-        self.cells = []
-        self.add_cells([
-            (2, 2, 2),
-            (2, 0, 0),
-            (1, 1, 1),
-            (0, 2, 0),
-            (0, 0, 2),
-            (2, -2, -1),
-            (1, -1, -1),
-            (0, 0, -2),
-            (-1, 1, -1),
-            (-2, 2, -2),
-            (0, 0, 0),
-            (0, -2, 0),
-            (-1, -1, 1),
-            (-2, 0, 0),
-            (-2, -2, 2)
-            ])
+    def get_cell(self, x, y, z):
+        return self.__cell_map[(x, y, z)]
 
-    def add_cells(self, l):
-        for cell in l:
-            self.add_cell(cell)
+    def rotate(self, axis_index):
+        for cell in self.__cells:
+            print("orig. " + str(tuple(cell.coords)) + "\n")
+            cell.coords = self.__rotations[axis_index].dot(cell.coords)
+            print("new   " + str(tuple(cell.coords)) + "\n\n")
+        for cell in self.__cells:
+            self.__set_cell(cell)
 
-    def add_cell(self, x, y, z):
-        self.cells.append(self.new_cell_factory(x, y, z))
+    def __create_cells(self):
+        self.__cells = []
+        tf = self.tetra_factory
+        of = self.octa_factory
+        cells = [
+            tf(2, 2, 2),
+            tf(2, 0, 0),
+            of(1, 1, 1),
+            tf(0, 2, 0),
+            tf(0, 0, 2),
+            tf(2, -2, -1),
+            of(1, -1, -1),
+            tf(0, 0, -2),
+            of(-1, 1, -1),
+            tf(-2, 2, -2),
+            tf(0, 0, 0), #TODO: invert
+            tf(0, -2, 0),
+            of(-1, -1, 1),
+            tf(-2, 0, 0),
+            tf(-2, -2, 2)
+        ]
+        for cell in cells:
+            self.__add_cell(cell)
 
-    def create_rotations(self):
-        self.rotations = []
-        self.add_rotations(self, [
-            ((0, 1, 0),
+    def __add_cell(self, cell):
+        self.__cells.append(cell)
+        self.__set_cell(cell)
+
+    def __set_cell(self, cell):
+        print("desc. " + str(tuple(cell.coords)) + " " + cell.walls[0].description + "\n")
+        self.__cell_map[tuple(cell.coords)] = cell
+
+    def __create_rotations(self):
+        self.__rotations = []
+        rotations =  [
+            ((0, 0, 1),
              (1, 0, 0),
-             (0, 0, 1)),
-            None,
-            None,
-            ((0, -1, 0),
+             (0, 1, 0)),
+            ((0, 0, 1),
              (-1, 0, 0),
-             (0, 0, 1))
-            ])
+             (0, -1, 0)),
+            ((0, 0, -1),
+             (1, 0, 0),
+             (0, -1, 0)),
+            ((0, 0, -1),
+             (-1, 0, 0),
+             (0, 1, 0))
+            ]
+        self.__add_rotations(rotations)
 
-    def add_rotations(self, matrices):
+    def __add_rotations(self, matrices):
         for matrix in matrices:
-            self.add_rotation(matrix)
+            self.__add_rotation(matrix)
 
-    def add_rotation(self, matrix):
-        self.rotations.append(matrix)
+    def __add_rotation(self, matrix):
+        self.__rotations.append(array(matrix))
