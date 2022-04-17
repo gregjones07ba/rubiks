@@ -10,10 +10,16 @@ class TestRubik(unittest.TestCase):
     
     def test_rotate(self):
         gb = self.rubik.get_cell(0, 0, 2)
-        gb.walls[0].description = "Boo!"
+        gb.walls[0].description = "foo"
+        rb = self.rubik.get_cell(2, 0, 0)
+        rb.walls[0].description = "bar"
+        
         self.rubik.rotate(0)
+
         gb_again = self.rubik.get_cell(2, 0, 0)
-        self.assertEqual(gb_again.walls[0].description, "Boo!")
+        self.assertEqual(gb_again.walls[0].description, "foo")
+        rb_again = self.rubik.get_cell(0, 2, 0)
+        self.assertEqual(rb_again.walls[0].description, "bar")
 
     def test_rotate_leaves_base(self):
         gby = self.rubik.get_cell(-2, -2, 2)
