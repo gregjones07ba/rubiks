@@ -22,5 +22,12 @@ class TestRubik(unittest.TestCase):
         gby_again = self.rubik.get_cell(-2, -2, 2)
         self.assertEqual(gby_again.walls[0].description, "Boo!")
 
+    def test_rotate_leaves_center(self):
+        center = self.rubik.get_cell(0, 0, 0)
+        center.walls[0].description = "Boo!"
+        self.rubik.rotate(0)
+        center_again = self.rubik.get_cell(0, 0, 0)
+        self.assertEqual(center_again.walls[0].description, "Boo!")
+
 if __name__ == '__main__':
     unittest.main()

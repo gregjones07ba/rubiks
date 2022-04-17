@@ -24,7 +24,7 @@ class Rubik:
 
     def is_base(self, cell, axis_index):
         alignment = cell.coords.dot(self.__rotations[axis_index].vertex)
-        return alignment < 0
+        return alignment < 0 #TODO <=
 
     def __create_cells(self):
         self.__cells = []
