@@ -36,5 +36,12 @@ class TestRubik(unittest.TestCase):
         rgb_octa_again = self.rubik.get_cell(1, 1, 1)
         self.assertEqual(rgb_octa_again.walls[0].description, "Boo!")
 
+    def test_rotate_rotates_apex(self):
+        rgb = self.rubik.get_cell(2, 2, 2)
+        rgb.walls[0].description = "Boo!"
+        self.rubik.rotate(0)
+        rgb_again = self.rubik.get_cell(2, 2, 2)
+        self.assertEqual(rgb_again.walls[0].description, "Boo!")
+
 if __name__ == '__main__':
     unittest.main()
