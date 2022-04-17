@@ -21,5 +21,6 @@ class Cell:
              (0, 1, 0),
              (0, 0, 1))) # identity
 
-    def get_walls(self):
+    @property
+    def walls(self):
         return self.__walls
