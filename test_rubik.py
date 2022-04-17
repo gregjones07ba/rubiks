@@ -13,6 +13,8 @@ class TestRubik(unittest.TestCase):
         gb.walls[0].description = "foo"
         rb = self.rubik.get_cell(2, 0, 0)
         rb.walls[0].description = "bar"
+        rg = self.rubik.get_cell(0, 2, 0)
+        rg.walls[0].description = "baz"
         
         self.rubik.rotate(0)
 
@@ -20,6 +22,8 @@ class TestRubik(unittest.TestCase):
         self.assertEqual(gb_again.walls[0].description, "foo")
         rb_again = self.rubik.get_cell(0, 2, 0)
         self.assertEqual(rb_again.walls[0].description, "bar")
+        rg_again = self.rubik.get_cell(0, 0, 2)
+        self.assertEqual(rg_again.walls[0].description, "baz")
 
     def test_rotate_leaves_base(self):
         gby = self.rubik.get_cell(-2, -2, 2)
