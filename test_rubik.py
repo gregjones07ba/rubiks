@@ -19,6 +19,8 @@ class TestRubik(unittest.TestCase):
         gby.walls[0].description = "gby"
         center = self.rubik.get_cell(0, 0, 0)
         center.walls[0].description = "center"
+        rgb_octa = self.rubik.get_cell(1, 1, 1)
+        rgb_octa.walls[0].description = "rgb_octa"
         
         self.rubik.rotate(0)
 
@@ -32,13 +34,8 @@ class TestRubik(unittest.TestCase):
         self.assertEqual(gby_again.walls[0].description, "gby")
         center_again = self.rubik.get_cell(0, 0, 0)
         self.assertEqual(center_again.walls[0].description, "center")
-
-    def test_rotate_rotates_octa(self):
-        rgb_octa = self.rubik.get_cell(1, 1, 1)
-        rgb_octa.walls[0].description = "Boo!"
-        self.rubik.rotate(0)
         rgb_octa_again = self.rubik.get_cell(1, 1, 1)
-        self.assertEqual(rgb_octa_again.walls[0].description, "Boo!")
+        self.assertEqual(rgb_octa_again.walls[0].description, "rgb_octa")
 
     def test_rotate_rotates_apex(self):
         rgb = self.rubik.get_cell(2, 2, 2)
