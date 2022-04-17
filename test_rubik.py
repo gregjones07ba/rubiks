@@ -8,13 +8,15 @@ class TestRubik(unittest.TestCase):
     def setUp(self):
         self.rubik = Rubik(TetraCell.factory, OctaCell.factory)
     
-    def test_rotate(self):
+    def test_rotate_rgb(self):
         gb = self.rubik.get_cell(0, 0, 2)
         gb.walls[0].description = "foo"
         rb = self.rubik.get_cell(2, 0, 0)
         rb.walls[0].description = "bar"
         rg = self.rubik.get_cell(0, 2, 0)
         rg.walls[0].description = "baz"
+        gby = self.rubik.get_cell(-2, -2, 2)
+        gby.walls[0].description = "Boo!"
         
         self.rubik.rotate(0)
 
@@ -24,11 +26,6 @@ class TestRubik(unittest.TestCase):
         self.assertEqual(rb_again.walls[0].description, "bar")
         rg_again = self.rubik.get_cell(0, 0, 2)
         self.assertEqual(rg_again.walls[0].description, "baz")
-
-    def test_rotate_leaves_base(self):
-        gby = self.rubik.get_cell(-2, -2, 2)
-        gby.walls[0].description = "Boo!"
-        self.rubik.rotate(0)
         gby_again = self.rubik.get_cell(-2, -2, 2)
         self.assertEqual(gby_again.walls[0].description, "Boo!")
 
