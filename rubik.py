@@ -1,4 +1,4 @@
-from numpy import array
+from rotation import Rotation
 
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
@@ -14,11 +14,17 @@ class Rubik:
 
     def rotate(self, axis_index):
         for cell in self.__cells:
-            print("orig. " + str(tuple(cell.coords)) + "\n")
-            cell.coords = self.__rotations[axis_index].dot(cell.coords)
-            print("new   " + str(tuple(cell.coords)) + "\n\n")
+            if self.__should_rotate(cell, axis_index):
+                cell.coords = self.__rotations[axis_index].matrix.dot(cell.coords)
         for cell in self.__cells:
             self.__set_cell(cell)
+
+    def __should_rotate(self, cell, axis_index):
+        return not self.is_base(cell, axis_index)
+
+    def is_base(self, cell, axis_index):
+        alignment = cell.coords.dot(self.__rotations[axis_index].vertex)
+        return alignment <= 0
 
     def __create_cells(self):
         self.__cells = []
@@ -49,30 +55,41 @@ class Rubik:
         self.__set_cell(cell)
 
     def __set_cell(self, cell):
-        print("desc. " + str(tuple(cell.coords)) + " " + cell.walls[0].description + "\n")
         self.__cell_map[tuple(cell.coords)] = cell
 
     def __create_rotations(self):
         self.__rotations = []
         rotations =  [
-            ((0, 0, 1),
-             (1, 0, 0),
-             (0, 1, 0)),
-            ((0, 0, 1),
-             (-1, 0, 0),
-             (0, -1, 0)),
-            ((0, 0, -1),
-             (1, 0, 0),
-             (0, -1, 0)),
-            ((0, 0, -1),
-             (-1, 0, 0),
-             (0, 1, 0))
+            Rotation(
+                (1, 1, 1),
+                ((0, 0, 1),
+                 (1, 0, 0),
+                 (0, 1, 0))
+                ),
+            Rotation(
+                (-1, 1, -1),
+                ((0, 0, 1),
+                 (-1, 0, 0),
+                 (0, -1, 0))
+                ),
+            Rotation(
+                (-1, -1, 1),
+                ((0, 0, -1),
+                 (1, 0, 0),
+                 (0, -1, 0))
+                ),
+            Rotation(
+                (1, -1, -1),
+                ((0, 0, -1),
+                 (-1, 0, 0),
+                 (0, 1, 0))
+                )
             ]
         self.__add_rotations(rotations)
 
-    def __add_rotations(self, matrices):
-        for matrix in matrices:
-            self.__add_rotation(matrix)
+    def __add_rotations(self, rotations):
+        for rotation in rotations:
+            self.__add_rotation(rotation)
 
-    def __add_rotation(self, matrix):
-        self.__rotations.append(array(matrix))
+    def __add_rotation(self, rotation):
+        self.__rotations.append(rotation)
