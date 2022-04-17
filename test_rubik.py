@@ -23,6 +23,8 @@ class TestRubik(unittest.TestCase):
         rgb_octa.walls[0].description = "rgb_octa"
         rgb = self.rubik.get_cell(2, 2, 2)
         rgb.walls[0].description = "rgb"
+        gby_octa = self.rubik.get_cell(-1, -1, 1)
+        gby_octa.walls[0].description = "gby_octa"
         
         self.rubik.rotate(0)
 
@@ -40,6 +42,8 @@ class TestRubik(unittest.TestCase):
         self.assertEqual(rgb_octa_again.walls[0].description, "rgb_octa")
         rgb_again = self.rubik.get_cell(2, 2, 2)
         self.assertEqual(rgb_again.walls[0].description, "rgb")
+        gby_octa_again = self.rubik.get_cell(-1, -1, 1)
+        self.assertEqual(gby_octa_again.walls[0].description, "gby_octa")
 
 if __name__ == '__main__':
     unittest.main()
