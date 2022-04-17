@@ -29,5 +29,12 @@ class TestRubik(unittest.TestCase):
         center_again = self.rubik.get_cell(0, 0, 0)
         self.assertEqual(center_again.walls[0].description, "Boo!")
 
+    def test_rotate_rotates_octa(self):
+        rgb_octa = self.rubik.get_cell(1, 1, 1)
+        rgb_octa.walls[0].description = "Boo!"
+        self.rubik.rotate(0)
+        rgb_octa_again = self.rubik.get_cell(1, 1, 1)
+        self.assertEqual(rgb_octa_again.walls[0].description, "Boo!")
+
 if __name__ == '__main__':
     unittest.main()
