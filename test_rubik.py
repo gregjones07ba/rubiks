@@ -45,5 +45,14 @@ class TestRubik(unittest.TestCase):
         gby_octa_again = self.rubik.get_cell(-1, -1, 1)
         self.assertEqual(gby_octa_again.walls[0].description, "gby_octa")
 
+    def test_rotate_rgy(self):
+        rg = self.rubik.get_cell(0, 2, 0)
+        rg.walls[0].description = "rg"
+
+        self.rubik.rotate(1)
+
+        rg_again = self.rubik.get_cell(0, 0, -2)
+        self.assertEqual(rg_again.walls[0].description, "rg")
+
 if __name__ == '__main__':
     unittest.main()
