@@ -1,12 +1,11 @@
 import unittest
 
 from rubik import Rubik
-from tetra_cell import TetraCell
-from octa_cell import OctaCell
+from cell import Cell
 
 class TestRubik(unittest.TestCase):
     def setUp(self):
-        self.rubik = Rubik(TetraCell.factory, OctaCell.factory)
+        self.rubik = Rubik(Cell.tetra_factory, Cell.octa_factory)
     
     def test_rotate_rgb(self):
         gb = self.rubik.get_cell(0, 0, 2)

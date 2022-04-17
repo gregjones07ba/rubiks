@@ -1,4 +1,5 @@
 from rotation import Rotation
+from color_directions import RGB, RGY, GBY, RBY
 
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
@@ -61,25 +62,25 @@ class Rubik:
         self.__rotations = []
         rotations =  [
             Rotation(
-                (1, 1, 1),
+                RGB[1],
                 ((0, 0, 1),
                  (1, 0, 0),
                  (0, 1, 0))
                 ),
             Rotation(
-                (-1, 1, -1),
+                RGY[1],
                 ((0, 0, 1),
                  (-1, 0, 0),
                  (0, -1, 0))
                 ),
             Rotation(
-                (-1, -1, 1),
+                GBY[1],
                 ((0, 0, -1),
                  (1, 0, 0),
                  (0, -1, 0))
                 ),
             Rotation(
-                (1, -1, -1),
+                RBY[1],
                 ((0, 0, -1),
                  (-1, 0, 0),
                  (0, 1, 0))
