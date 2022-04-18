@@ -49,9 +49,11 @@ class Rubik:
         )
 
     def __door_state(self, x, y, z, wall):
-        next_room = tuple(array((x, y, z)) + wall.direction)
         if wall.door:
-            if self.get_cell(*next_room).walls[4].door:
+            next_room_address = tuple(array((x, y, z)) + wall.direction)
+            next_room = self.get_cell(*next_room_address)
+            reverse_wall = next_room.wall_with_direction(-wall.direction)
+            if reverse_wall.door:
                 return self.DoorState.DOOR
             else:
                 return self.DoorState.OBSTRUCTED

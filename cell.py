@@ -28,3 +28,14 @@ class Cell:
     @property
     def walls(self):
         return [ProxyWall(wall, self.rotation.dot(wall.direction)) for wall in self.__walls]
+
+    def wall_with_direction(self, direction):
+        try:
+            return next(
+                filter(
+                    lambda wall: (wall.direction == direction).all(),
+                    self.walls
+                ),
+            )
+        except StopIteration:
+            raise ValueError("No such wall")
