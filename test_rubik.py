@@ -29,7 +29,7 @@ class TestRubik(unittest.TestCase):
 
         gb_again = self.rubik.get_cell(2, 0, 0)
         self.assertEqual(gb_again.walls[0].description, "gb")
-        #self.assertEqual(tuple(gb_again.walls[0].direction), (-1, 1, 1))
+        self.assertEqual(tuple(gb_again.walls[0].direction), (-1, 1, 1))
         rb_again = self.rubik.get_cell(0, 2, 0)
         self.assertEqual(rb_again.walls[0].description, "rb")
         rg_again = self.rubik.get_cell(0, 0, 2)

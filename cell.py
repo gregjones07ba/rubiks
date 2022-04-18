@@ -1,6 +1,7 @@
 from numpy import array
 
 from wall import Wall
+from proxy_wall import ProxyWall
 from color_directions import tetra_colors, octa_colors
 
 class Cell:
@@ -21,6 +22,9 @@ class Cell:
              (0, 1, 0),
              (0, 0, 1))) # identity
 
+    def rotate(self, rotation):
+        self.rotation = rotation.dot(self.rotation)
+
     @property
     def walls(self):
-        return self.__walls
+        return [ProxyWall(wall, self.rotation.dot(wall.direction)) for wall in self.__walls]

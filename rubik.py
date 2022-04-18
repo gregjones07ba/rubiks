@@ -18,6 +18,7 @@ class Rubik:
             if self.__should_rotate(cell, axis_index):
                 cell.coords = self.__rotations[axis_index].matrix.dot(cell.coords)
         for cell in self.__cells:
+            cell.rotate(self.__rotations[axis_index].matrix)
             self.__set_cell(cell)
 
     def __should_rotate(self, cell, axis_index):
