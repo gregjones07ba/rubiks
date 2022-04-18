@@ -92,8 +92,7 @@ class TestRubik(unittest.TestCase):
             (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.rubik.describe_cell(0, 0, 2)
-        actual_description_simplified = list(map(lambda wall: (tuple(wall[0]), wall[1], wall[2]), actual_description))
-        self.assertEqual(actual_description_simplified, expected_description)
+        self.__assert_descriptions_equal(actual_description, expected_description)
 
     def test_describe_cell_with_doors(self):
         gb = self.rubik.get_cell(0, 0, 2)
@@ -114,6 +113,9 @@ class TestRubik(unittest.TestCase):
             (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.rubik.describe_cell(0, 0, 2)
+        self.__assert_descriptions_equal(actual_description, expected_description)
+
+    def __assert_descriptions_equal(self, actual_description, expected_description):
         actual_description_simplified = list(map(lambda wall: (tuple(wall[0]), wall[1], wall[2]), actual_description))
         self.assertEqual(actual_description_simplified, expected_description)
         
