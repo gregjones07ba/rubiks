@@ -49,7 +49,10 @@ class Rubik:
 
     def __door_state(self, x, y, z, wall):
         if wall.door:
-            return self.DoorState.DOOR
+            if self.get_cell(1, 1, 1).walls[4].door:
+                return self.DoorState.DOOR
+            else:
+                return self.DoorState.OBSTRUCTED
         else:
             return self.DoorState.NO_DOOR
 
