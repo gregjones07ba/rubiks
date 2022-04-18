@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from numpy import array
 
 from rotation import Rotation
 from color_directions import RGB, RGY, GBY, RBY
@@ -48,8 +49,9 @@ class Rubik:
         )
 
     def __door_state(self, x, y, z, wall):
+        next_room = tuple(array((x, y, z)) + wall.direction)
         if wall.door:
-            if self.get_cell(1, 1, 1).walls[4].door:
+            if self.get_cell(*next_room).walls[4].door:
                 return self.DoorState.DOOR
             else:
                 return self.DoorState.OBSTRUCTED

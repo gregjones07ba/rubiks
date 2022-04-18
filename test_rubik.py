@@ -133,6 +133,37 @@ class TestRubik(unittest.TestCase):
         actual_description = self.rubik.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
 
+    def test_describe_cell_with_obstructed_door_then_open_door(self):
+        gb = self.rubik.get_cell(0, 0, 2)
+        gb.walls[0].description = 'red'
+        gb.walls[1].description = 'green'
+        gb.walls[2].description = 'blue'
+        gb.walls[3].description = 'yellow'
+
+        gb.walls[0].door = True
+
+        rgy_octa = self.rubik.get_cell(-1, 1, -1)
+        rgy_octa.walls[4].door = True
+        
+        expected_description = [
+            (RED[1], 'red', Rubik.DoorState.OBSTRUCTED),
+            (GREEN[1], 'green', Rubik.DoorState.NO_DOOR),
+            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
+        ]
+        actual_description = self.rubik.describe_cell(0, 0, 2)
+        self.__assert_descriptions_equal(actual_description, expected_description)
+
+        self.rubik.rotate(2)
+        expected_description = [
+            (RED[1], 'red', Rubik.DoorState.DOOR),
+            (YELLOW[1], 'green', Rubik.DoorState.NO_DOOR),
+            (GREEN[1], 'blue', Rubik.DoorState.NO_DOOR),
+            (BLUE[1], 'yellow', Rubik.DoorState.NO_DOOR)
+        ]
+        actual_description = self.rubik.describe_cell(-2, 0, 0)
+        self.__assert_descriptions_equal(actual_description, expected_description)
+
     def __assert_descriptions_equal(self, actual_description, expected_description):
         actual_description_simplified = list(map(lambda wall: (tuple(wall[0]), wall[1], wall[2]), actual_description))
         self.assertEqual(actual_description_simplified, expected_description)
