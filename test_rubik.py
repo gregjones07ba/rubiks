@@ -39,7 +39,7 @@ class TestRubik(unittest.TestCase):
         self.assertEqual(tuple(gby_again.walls[0].direction), (1, 1, -1))
         center_again = self.rubik.get_cell(0, 0, 0)
         self.assertEqual(center_again.walls[0].description, "center")
-        #self.assertEqual(tuple(center_again.walls[0].direction), (1, 1, -1))
+        self.assertEqual(tuple(center_again.walls[0].direction), (1, 1, -1))
         rgb_octa_again = self.rubik.get_cell(1, 1, 1)
         self.assertEqual(rgb_octa_again.walls[0].description, "rgb_octa")
         rgb_again = self.rubik.get_cell(2, 2, 2)
