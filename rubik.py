@@ -1,8 +1,15 @@
+from enum import Enum, auto
+
 from rotation import Rotation
 from color_directions import RGB, RGY, GBY, RBY
 
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
+    class DoorState(Enum):
+        NO_DOOR = auto()
+        OBSTRUCTED = auto()
+        DOOR = auto()
+    
     def __init__(self, tetra_factory, octa_factory):
         self.tetra_factory = tetra_factory
         self.octa_factory = octa_factory
@@ -21,20 +28,27 @@ class Rubik:
         for cell in self.__cells:
             self.__set_cell(cell)
 
-    def describe_cell(self, x, y, z):
-        return [self.describe_wall(x, y, z, wall)
-                for wall in
-                self.get_cell(x, y, z).walls]
-
-    def describe_wall(self, x, y, z, wall):
-        return (wall.direction, wall.description, '')
-
     def __should_rotate(self, cell, axis_index):
         return not self.__is_base(cell, axis_index)
 
     def __is_base(self, cell, axis_index):
         alignment = cell.coords.dot(self.__rotations[axis_index].vertex)
         return alignment <= 0
+
+    def describe_cell(self, x, y, z):
+        return [self.__describe_wall(x, y, z, wall)
+                for wall in
+                self.get_cell(x, y, z).walls]
+
+    def __describe_wall(self, x, y, z, wall):
+        return (
+            wall.direction,
+            wall.description,
+            self.__door_state(x, y, z, wall)
+        )
+
+    def __door_state(self, x, y, z, wall):
+        return self.DoorState.DOOR if wall.door else self.DoorState.NO_DOOR
 
     def __create_cells(self):
         self.__cells = []
