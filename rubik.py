@@ -21,6 +21,14 @@ class Rubik:
         for cell in self.__cells:
             self.__set_cell(cell)
 
+    def describe_cell(self, x, y, z):
+        return [self.describe_wall(x, y, z, wall)
+                for wall in
+                self.get_cell(x, y, z).walls]
+
+    def describe_wall(self, x, y, z, wall):
+        return (wall.direction, wall.description, '')
+
     def __should_rotate(self, cell, axis_index):
         return not self.__is_base(cell, axis_index)
 

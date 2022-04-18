@@ -1,7 +1,11 @@
 import unittest
 
+from numpy import array
+
 from rubik import Rubik
 from cell import Cell
+
+from color_directions import *
 
 class TestRubik(unittest.TestCase):
     def setUp(self):
@@ -73,6 +77,23 @@ class TestRubik(unittest.TestCase):
 
         rb_again = self.rubik.get_cell(0, -2, 0)
         self.assertEqual(rb_again.walls[0].description, "rb")
+
+    def test_describe_cell_no_doors(self):
+        gb = self.rubik.get_cell(0, 0, 2)
+        gb.walls[0].description = 'red'
+        gb.walls[1].description = 'green'
+        gb.walls[2].description = 'blue'
+        gb.walls[3].description = 'yellow'
+        
+        expected_description = [
+            (RED[1], 'red', ''),
+            (GREEN[1], 'green', ''),
+            (BLUE[1], 'blue', ''),
+            (YELLOW[1], 'yellow', '')
+        ]
+        actual_description = self.rubik.describe_cell(0, 0, 2)
+        actual_description_simplified = list(map(lambda wall: (tuple(wall[0]), wall[1], wall[2]), actual_description))
+        self.assertEqual(actual_description_simplified, expected_description)
 
 if __name__ == '__main__':
     unittest.main()
