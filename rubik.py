@@ -22,9 +22,9 @@ class Rubik:
             self.__set_cell(cell)
 
     def __should_rotate(self, cell, axis_index):
-        return not self.is_base(cell, axis_index)
+        return not self.__is_base(cell, axis_index)
 
-    def is_base(self, cell, axis_index):
+    def __is_base(self, cell, axis_index):
         alignment = cell.coords.dot(self.__rotations[axis_index].vertex)
         return alignment <= 0
 
