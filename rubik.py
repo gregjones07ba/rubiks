@@ -51,12 +51,15 @@ class Rubik:
     def __door_state(self, x, y, z, wall):
         if wall.door:
             next_room_address = tuple(array((x, y, z)) + wall.direction)
-            next_room = self.get_cell(*next_room_address)
-            reverse_wall = next_room.wall_with_direction(-wall.direction)
-            if reverse_wall.door:
+            try:
+                next_room = self.get_cell(*next_room_address)
+                reverse_wall = next_room.wall_with_direction(-wall.direction)
+                if reverse_wall.door:
+                    return self.DoorState.DOOR
+                else:
+                    return self.DoorState.OBSTRUCTED
+            except KeyError:
                 return self.DoorState.DOOR
-            else:
-                return self.DoorState.OBSTRUCTED
         else:
             return self.DoorState.NO_DOOR
 
