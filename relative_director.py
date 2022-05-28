@@ -42,4 +42,7 @@ class RelativeDirector:
                 else self.Directions.DOWN)
 
     def simplify_directions(self, from_vector, direction_set):
-        return {}
+        return {
+            direction: self.Directions.BACK
+            for direction in direction_set
+        }
