@@ -44,7 +44,7 @@ class TestRelativeDirector(unittest.TestCase):
         direction_set = self.__vector_keys(direction_list)
         actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
         expected_direction_map = {
-            tuple(BLUE.vector): RelativeDirector.Directions.LEFT
+            tuple(BLUE.vector): [RelativeDirector.Directions.LEFT]
         }
         self.assertEquals(actual_direction_map, expected_direction_map)
 
@@ -54,7 +54,7 @@ class TestRelativeDirector(unittest.TestCase):
         direction_set = self.__vector_keys(direction_list)
         actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
         expected_direction_map = {
-            tuple(RED.vector): RelativeDirector.Directions.BACK
+            tuple(RED.vector): [RelativeDirector.Directions.BACK]
         }
         self.assertEquals(actual_direction_map, expected_direction_map)
         

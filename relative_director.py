@@ -51,7 +51,7 @@ class RelativeDirector:
 
     def __simplify_direction(self, from_vector, direction, direction_set):
         relative_directions = self.get_relative_directions(from_vector, array(direction))
-        return next(relative_direction
+        return next([relative_direction]
                     for relative_direction in relative_directions
                     if self.__use_relative_direction(relative_direction))
 
