@@ -25,6 +25,8 @@ class RelativeDirector:
     def get_left_or_right(self, from_vector, to_vector):
         cross_product = cross(from_vector, to_vector)
         dot_vertical = cross_product.dot(self.vertical)
+        if dot_vertical == 0:
+            return None
         return (self.Directions.LEFT
                 if dot_vertical > 0
                 else self.Directions.RIGHT)
@@ -48,4 +50,10 @@ class RelativeDirector:
         }
 
     def __simplify_direction(self, from_vector, direction, direction_set):
-        return self.Directions.BACK
+        relative_directions = self.get_relative_directions(from_vector, array(direction))
+        return next(relative_direction
+                    for relative_direction in relative_directions
+                    if self.__use_relative_direction(relative_direction))
+
+    def __use_relative_direction(self, relative_direction):
+        return relative_direction is not None

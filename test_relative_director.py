@@ -38,6 +38,16 @@ class TestRelativeDirector(unittest.TestCase):
         actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
         self.assertEquals(actual_direction_map, {})
 
+    def test_simplify_directions_simplifies_singleton_blue_to_left(self):
+        from_vector = ANTI_RED.vector
+        direction_list = [BLUE.vector]
+        direction_set = self.__vector_keys(direction_list)
+        actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
+        expected_direction_map = {
+            tuple(BLUE.vector): RelativeDirector.Directions.LEFT
+        }
+        self.assertEquals(actual_direction_map, expected_direction_map)
+
     def test_simplify_directions_simplifies_singleton_direction(self):
         from_vector = ANTI_RED.vector
         direction_list = [RED.vector]
@@ -47,7 +57,7 @@ class TestRelativeDirector(unittest.TestCase):
             tuple(RED.vector): RelativeDirector.Directions.BACK
         }
         self.assertEquals(actual_direction_map, expected_direction_map)
-
+        
     def __vector_keys(self, vector_list):
         return set(self.__vector_key(vector) for vector in vector_list)
 
