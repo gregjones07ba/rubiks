@@ -5,7 +5,7 @@ from numpy import array
 from rubik import Rubik
 from cell import Cell
 
-from color_directions import *
+from color_direction import *
 
 class TestRubik(unittest.TestCase):
     def setUp(self):
@@ -86,10 +86,10 @@ class TestRubik(unittest.TestCase):
         gb.walls[3].description = 'yellow'
         
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.NO_DOOR),
-            (GREEN[1], 'green', Rubik.DoorState.NO_DOOR),
-            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
+            (RED.vector, 'red', Rubik.DoorState.NO_DOOR),
+            (GREEN.vector, 'green', Rubik.DoorState.NO_DOOR),
+            (BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
@@ -107,10 +107,10 @@ class TestRubik(unittest.TestCase):
         rgb_octa.walls[4].door = True
         
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.DOOR),
-            (GREEN[1], 'green', Rubik.DoorState.NO_DOOR),
-            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
+            (RED.vector, 'red', Rubik.DoorState.DOOR),
+            (GREEN.vector, 'green', Rubik.DoorState.NO_DOOR),
+            (BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
@@ -125,10 +125,10 @@ class TestRubik(unittest.TestCase):
         gb.walls[0].door = True
 
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.OBSTRUCTED),
-            (GREEN[1], 'green', Rubik.DoorState.NO_DOOR),
-            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
+            (RED.vector, 'red', Rubik.DoorState.OBSTRUCTED),
+            (GREEN.vector, 'green', Rubik.DoorState.NO_DOOR),
+            (BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
@@ -146,20 +146,20 @@ class TestRubik(unittest.TestCase):
         rgy_octa.walls[4].door = True
         
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.OBSTRUCTED),
-            (GREEN[1], 'green', Rubik.DoorState.NO_DOOR),
-            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
+            (RED.vector, 'red', Rubik.DoorState.OBSTRUCTED),
+            (GREEN.vector, 'green', Rubik.DoorState.NO_DOOR),
+            (BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
 
         self.test_obj.rotate(2)
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.DOOR),
-            (YELLOW[1], 'green', Rubik.DoorState.NO_DOOR),
-            (GREEN[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (BLUE[1], 'yellow', Rubik.DoorState.NO_DOOR)
+            (RED.vector, 'red', Rubik.DoorState.DOOR),
+            (YELLOW.vector, 'green', Rubik.DoorState.NO_DOOR),
+            (GREEN.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (BLUE.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(-2, 0, 0)
         self.__assert_descriptions_equal(actual_description, expected_description)
@@ -177,10 +177,10 @@ class TestRubik(unittest.TestCase):
         gby_octa.walls[0].door = True
         
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.NO_DOOR),
-            (GREEN[1], 'green', Rubik.DoorState.NO_DOOR),
-            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (YELLOW[1], 'yellow', Rubik.DoorState.DOOR)
+            (RED.vector, 'red', Rubik.DoorState.NO_DOOR),
+            (GREEN.vector, 'green', Rubik.DoorState.NO_DOOR),
+            (BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW.vector, 'yellow', Rubik.DoorState.DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
@@ -195,17 +195,23 @@ class TestRubik(unittest.TestCase):
         gb.walls[1].door = True
 
         expected_description = [
-            (RED[1], 'red', Rubik.DoorState.NO_DOOR),
-            (GREEN[1], 'green', Rubik.DoorState.DOOR),
-            (BLUE[1], 'blue', Rubik.DoorState.NO_DOOR),
-            (YELLOW[1], 'yellow', Rubik.DoorState.NO_DOOR)
+            (RED.vector, 'red', Rubik.DoorState.NO_DOOR),
+            (GREEN.vector, 'green', Rubik.DoorState.DOOR),
+            (BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            (YELLOW.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
         self.__assert_descriptions_equal(actual_description, expected_description)
 
     def __assert_descriptions_equal(self, actual_description, expected_description):
-        actual_description_simplified = list(map(lambda wall: (tuple(wall[0]), wall[1], wall[2]), actual_description))
-        self.assertEqual(actual_description_simplified, expected_description)
+        actual_description_simplified = self.__simplify_description(actual_description)
+        expected_description_simplified = self.__simplify_description(expected_description)
+
+    def __simplify_description(self, description):
+        return list(map(
+            lambda wall: (tuple(wall[0]), wall[1], wall[2]),
+            description
+        ))
         
 if __name__ == '__main__':
     unittest.main()

@@ -2,17 +2,17 @@ from numpy import array
 
 from wall import Wall
 from proxy_wall import ProxyWall
-from color_directions import tetra_colors, octa_colors
+from color_direction import tetra_colors, octa_colors
 
 class Cell:
     def tetra_factory(x, y, z):
         c = Cell(x, y, z)
-        c.__walls = [Wall(color, direction) for color, direction in tetra_colors]
+        c.__walls = [Wall(color.name, color.vector) for color in tetra_colors]
         return c
 
     def octa_factory(x, y, z):
         c = Cell(x, y, z)
-        c.__walls = [Wall(color, direction) for color, direction in octa_colors]
+        c.__walls = [Wall(color.name, color.vector) for color in octa_colors]
         return c
 
     def __init__(self, x, y, z):

@@ -2,7 +2,7 @@ from enum import Enum, auto
 from numpy import array
 
 from rotation import Rotation
-from color_directions import RGB, RGY, GBY, RBY
+from color_direction import RGB, RGY, GBY, RBY
 
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
@@ -98,29 +98,37 @@ class Rubik:
         self.__rotations = []
         rotations =  [
             Rotation(
-                RGB[1],
-                ((0, 0, 1),
-                 (1, 0, 0),
-                 (0, 1, 0))
-                ),
+                RGB.vector,
+                array((
+                    (0, 0, 1),
+                    (1, 0, 0),
+                    (0, 1, 0)
+                ))
+            ),
             Rotation(
-                RGY[1],
-                ((0, 0, 1),
-                 (-1, 0, 0),
-                 (0, -1, 0))
-                ),
+                RGY.vector,
+                array((
+                    (0, 0, 1),
+                    (-1, 0, 0),
+                    (0, -1, 0)
+                ))
+            ),
             Rotation(
-                GBY[1],
-                ((0, 0, -1),
-                 (1, 0, 0),
-                 (0, -1, 0))
-                ),
+                GBY.vector,
+                array((
+                    (0, 0, -1),
+                    (1, 0, 0),
+                    (0, -1, 0)
+                ))
+            ),
             Rotation(
-                RBY[1],
-                ((0, 0, -1),
-                 (-1, 0, 0),
-                 (0, 1, 0))
-                )
+                RBY.vector,
+                array((
+                    (0, 0, -1),
+                    (-1, 0, 0),
+                    (0, 1, 0)
+                ))
+            )
             ]
         self.__add_rotations(rotations)
 
