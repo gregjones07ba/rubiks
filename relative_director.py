@@ -50,10 +50,30 @@ class RelativeDirector:
         }
 
     def __simplify_direction(self, from_vector, direction, direction_set):
-        relative_directions = self.get_relative_directions(from_vector, array(direction))
-        return next([relative_direction]
-                    for relative_direction in relative_directions
-                    if self.__use_relative_direction(relative_direction))
+        all_relative_directions = []
+        relative_directions = None
+        for other_direction in direction_set:
+            other_relative_directions = self.get_relative_directions(from_vector, array(other_direction))
+            all_relative_directions.append(other_relative_directions)
+            if direction == other_direction:
+                relative_directions = other_relative_directions
 
-    def __use_relative_direction(self, relative_direction):
+        for index, relative_direction in enumerate(relative_directions):
+            if self.__use_relative_direction(relative_direction, index, all_relative_directions):
+                return [relative_direction]
+
+    def __use_relative_direction(self, relative_direction, index, all_relative_direction_sets):
+        return (self.__direction_exists(relative_direction) and
+                self.__direction_is_unique(relative_direction, index, all_relative_direction_sets))
+
+    def __direction_exists(self, relative_direction):
         return relative_direction is not None
+
+    def __direction_is_unique(self, relative_direction, index, all_relative_direction_sets):
+        return self.__freq_of_direction(relative_direction, index, all_relative_direction_sets) == 1
+
+    def __freq_of_direction(self, relative_direction, index, all_relative_direction_sets):
+        return len([1
+                    for other_relative_direction_set in all_relative_direction_sets
+                    if other_relative_direction_set[index] == relative_direction
+        ]) 
