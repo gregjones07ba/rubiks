@@ -40,3 +40,6 @@ class RelativeDirector:
         return (self.Directions.UP
                 if dot_vertical > 0
                 else self.Directions.DOWN)
+
+    def simplify_directions(self, from_vector, direction_set):
+        return {}
