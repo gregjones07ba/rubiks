@@ -24,5 +24,9 @@ class TestRelativeDirector(unittest.TestCase):
         actual_directions = self.test_obj.get_relative_directions(ANTI_RED.vector, GREEN.vector)
         self.assertEqual(actual_directions[0], RelativeDirector.Directions.RIGHT)
 
+    def test_down(self):
+        actual_directions = self.test_obj.get_relative_directions(ANTI_RED.vector, YELLOW.vector)
+        self.assertEqual(actual_directions[2], RelativeDirector.Directions.DOWN)
+
 if __name__ == '__main__':
     unittest.main()

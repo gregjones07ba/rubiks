@@ -12,12 +12,13 @@ class RelativeDirector:
         LEFT = 1
         BACK = -2
         FORWARD = 2
+        DOWN = -3
 
     def get_relative_directions(self, from_vector, to_vector):
         return (
             self.get_left_or_right(from_vector, to_vector),
             self.get_back_or_forward(from_vector, to_vector),
-            None
+            self.get_down_or_up(to_vector)
         )
 
     def get_left_or_right(self, from_vector, to_vector):
@@ -32,3 +33,6 @@ class RelativeDirector:
         return (self.Directions.FORWARD
                 if dot_product > 0
                 else self.Directions.BACK)
+
+    def get_down_or_up(self, to_vector):
+        return self.Directions.DOWN
