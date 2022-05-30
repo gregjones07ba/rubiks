@@ -24,6 +24,10 @@ class TestExplorer(unittest.TestCase):
         rb_b.description = 'a lion statue'
         rb_y = rb.wall_with_direction(YELLOW.vector)
         rb_y.description = 'a bas relief of a sun phoenix'
+        rb_y.door = True
+        rby_octa = rubik.get_cell(1, -1, -1)
+        rby_octa_ay = rby_octa.wall_with_direction(ANTI_YELLOW.vector)
+        rby_octa_ay.door = True
         return rubik
 
     def test_describe_room_gives_relative_wall_descriptions(self):
@@ -41,6 +45,7 @@ class TestExplorer(unittest.TestCase):
         actual_down = actual_description[3]
         self.assertEqual(actual_down.relative_directions, [RelativeDirector.Directions.DOWN])
         self.assertEqual(actual_down.description, 'a bas relief of a sun phoenix')
+        self.assertEqual(actual_down.door_state, Rubik.DoorState.DOOR)
 
 if __name__ == '__main__':
     unittest.main()
