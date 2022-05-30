@@ -44,22 +44,24 @@ class RelativeDirector:
                 else self.Directions.DOWN)
 
     def simplify_directions(self, from_vector, direction_set):
+        all_relative_directions_map = self.__get_all_relative_directions_map(from_vector, direction_set)
         return {
-            direction: self.__simplify_direction(from_vector, direction, direction_set)
+            direction: self.__simplify_direction(from_vector, direction, direction_set, all_relative_directions_map)
             for direction in direction_set
         }
 
-    def __simplify_direction(self, from_vector, direction, direction_set):
-        all_relative_directions = []
-        relative_directions = None
-        for other_direction in direction_set:
-            other_relative_directions = self.get_relative_directions(from_vector, array(other_direction))
-            all_relative_directions.append(other_relative_directions)
-            if direction == other_direction:
-                relative_directions = other_relative_directions
+    def __get_all_relative_directions_map(self, from_vector, direction_set):
+        return {
+            direction:
+            self.get_relative_directions(from_vector, array(direction))
+            for direction in direction_set
+        }
+
+    def __simplify_direction(self, from_vector, direction, direction_set, all_relative_directions_map):
+        relative_directions = all_relative_directions_map[direction]
 
         for index, relative_direction in enumerate(relative_directions):
-            if self.__use_relative_direction(relative_direction, index, all_relative_directions):
+            if self.__use_relative_direction(relative_direction, index, all_relative_directions_map.values()):
                 return [relative_direction]
 
     def __use_relative_direction(self, relative_direction, index, all_relative_direction_sets):
