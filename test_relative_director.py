@@ -47,7 +47,7 @@ class TestRelativeDirector(unittest.TestCase):
         from_vector = ANTI_RED.vector
         direction_set = set()
         actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
-        self.assertEquals(actual_direction_map, {})
+        self.assertEqual(actual_direction_map, {})
 
     def test_simplify_directions_simplifies_singleton_direction(self):
         from_vector = ANTI_RED.vector
@@ -57,7 +57,7 @@ class TestRelativeDirector(unittest.TestCase):
         expected_direction_map = {
             tuple(RED.vector): [RelativeDirector.Directions.BACK]
         }
-        self.assertEquals(actual_direction_map, expected_direction_map)
+        self.assertEqual(actual_direction_map, expected_direction_map)
 
     def test_simplify_directions_simplifies_singleton_blue_to_left(self):
         from_vector = ANTI_RED.vector
@@ -67,7 +67,7 @@ class TestRelativeDirector(unittest.TestCase):
         expected_direction_map = {
             tuple(BLUE.vector): [RelativeDirector.Directions.LEFT]
         }
-        self.assertEquals(actual_direction_map, expected_direction_map)
+        self.assertEqual(actual_direction_map, expected_direction_map)
         
     def test_simplify_directions_simplifies_yellow_to_down_with_blue(self):
         from_vector = ANTI_RED.vector
@@ -78,7 +78,7 @@ class TestRelativeDirector(unittest.TestCase):
             tuple(BLUE.vector): [RelativeDirector.Directions.LEFT],
             tuple(YELLOW.vector): [RelativeDirector.Directions.DOWN]
         }
-        self.assertEquals(actual_direction_map, expected_direction_map)
+        self.assertEqual(actual_direction_map, expected_direction_map)
         
     def __vector_keys(self, vector_list):
         return set(self.__vector_key(vector) for vector in vector_list)
@@ -97,14 +97,14 @@ class TestRelativeDirector(unittest.TestCase):
             tuple(GREEN.vector): [RelativeDirector.Directions.RIGHT],
             tuple(YELLOW.vector): [RelativeDirector.Directions.DOWN]
         }
-        self.assertEquals(actual_direction_map, expected_direction_map)
+        self.assertEqual(actual_direction_map, expected_direction_map)
 
     def test_simplify_directions_simplifies_anti_green_to_forward_right_when_blue_and_anti_blue_present(self):
         from_vector = RED.vector
         direction_list = [ANTI_GREEN.vector, BLUE.vector, ANTI_BLUE.vector]
         direction_set = set(map(tuple, direction_list))
         actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
-        self.assertEquals(actual_direction_map[tuple(ANTI_GREEN.vector)],
+        self.assertEqual(actual_direction_map[tuple(ANTI_GREEN.vector)],
                           [RelativeDirector.Directions.RIGHT, RelativeDirector.Directions.FORWARD])
 
     def test_simplify_directions_simplifies_red_to_forward_when_anti_green_and_blue_present(self):
@@ -112,7 +112,7 @@ class TestRelativeDirector(unittest.TestCase):
         direction_list = [RED.vector, ANTI_GREEN.vector, BLUE.vector]
         direction_set = set(map(tuple, direction_list))
         actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
-        self.assertEquals(actual_direction_map[tuple(RED.vector)],
+        self.assertEqual(actual_direction_map[tuple(RED.vector)],
                           [RelativeDirector.Directions.FORWARD])
 
     def test_simplify_directions_simplifies_octahedron_directions_from_red(self):
@@ -131,7 +131,7 @@ class TestRelativeDirector(unittest.TestCase):
             tuple(ANTI_YELLOW.vector): [RelativeDirector.Directions.UP],
             tuple(YELLOW.vector): [RelativeDirector.Directions.DOWN]
         }
-        self.assertEquals(actual_direction_map, expected_direction_map)
+        self.assertEqual(actual_direction_map, expected_direction_map)
         
 if __name__ == '__main__':
     unittest.main()
