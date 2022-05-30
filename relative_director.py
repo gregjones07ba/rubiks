@@ -27,7 +27,7 @@ class RelativeDirector:
     def get_left_or_right(self, from_vector, to_vector):
         cross_product = cross(from_vector, to_vector)
         dot_vertical = cross_product.dot(self.vertical)
-        if dot_vertical == 0:
+        if isclose(dot_vertical, 0.0, abs_tol=1e-09):
             return None
         return (self.Directions.LEFT
                 if dot_vertical > 0
@@ -51,7 +51,7 @@ class RelativeDirector:
 
     def get_down_or_up(self, to_vector):
         dot_vertical = to_vector.dot(self.vertical)
-        if dot_vertical == 0:
+        if isclose(dot_vertical, 0.0, abs_tol=1e-09):
             return None
         return (self.Directions.UP
                 if dot_vertical > 0
