@@ -36,13 +36,25 @@ class Rubik:
         alignment = cell.coords.dot(self.__rotations[axis_index].vertex)
         return alignment <= 0
 
+    class WallDescription:
+        def __init__(self, direction, description, door_state):
+            self.direction = direction
+            self.description = description
+            self.door_state = door_state
+
+        def __eq__(self, other):
+            if isinstance(other, Rubik.WallDescription):
+                return ((self.direction == other.direction).all() and
+                        self.description == other.description and
+                        self.door_state == other.door_state)
+
     def describe_cell(self, x, y, z):
         return [self.__describe_wall(x, y, z, wall)
                 for wall in
                 self.get_cell(x, y, z).walls]
 
     def __describe_wall(self, x, y, z, wall):
-        return (
+        return self.WallDescription(
             wall.direction,
             wall.description,
             self.__door_state(x, y, z, wall)
