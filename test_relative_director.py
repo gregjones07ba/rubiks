@@ -32,6 +32,11 @@ class TestRelativeDirector(unittest.TestCase):
         actual_directions = self.test_obj.get_relative_directions(RED.vector, ANTI_YELLOW.vector)
         self.assertEqual(actual_directions[2], RelativeDirector.Directions.UP)
 
+    def test_floor_is_not_back_from_red(self):
+        actual_directions = self.test_obj.get_relative_directions(RED.vector, YELLOW.vector)
+        expected_directions = (None, None, RelativeDirector.Directions.DOWN)
+        self.assertEqual(actual_directions, expected_directions)
+
     def test_simplify_directions_simplifies_empty_directions(self):
         from_vector = ANTI_RED.vector
         direction_set = set()
