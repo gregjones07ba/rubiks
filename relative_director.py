@@ -63,7 +63,7 @@ class RelativeDirector:
         for indices in self.__axis_subsets(len(relative_directions)):
             relative_direction_set = self.__project(relative_directions, indices)
             if self.__use_relative_direction_set(relative_direction_set, indices, all_relative_directions_map.values()):
-                return relative_direction_set
+                return self.__remove_unspecified(relative_direction_set)
 
     def __axis_subsets(self, num_indices):
         all_indices = range(num_indices)
@@ -91,3 +91,8 @@ class RelativeDirector:
 
     def __match_on_indices(self, relative_directions, relative_direction_set, indices):
         return self.__project(relative_directions, indices) == relative_direction_set
+
+    def __remove_unspecified(self, relative_direction_set):
+        return [relative_direction
+                for relative_direction in relative_direction_set
+                if relative_direction]

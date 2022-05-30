@@ -96,6 +96,14 @@ class TestRelativeDirector(unittest.TestCase):
         self.assertEquals(actual_direction_map[tuple(ANTI_GREEN.vector)],
                           [RelativeDirector.Directions.RIGHT, RelativeDirector.Directions.FORWARD])
 
+    def test_simplify_directions_simplifies_red_to_forward_when_anti_green_and_blue_present(self):
+        from_vector = RED.vector
+        direction_list = [RED.vector, ANTI_GREEN.vector, BLUE.vector]
+        direction_set = set(map(tuple, direction_list))
+        actual_direction_map = self.test_obj.simplify_directions(from_vector, direction_set)
+        self.assertEquals(actual_direction_map[tuple(RED.vector)],
+                          [RelativeDirector.Directions.FORWARD])
+
     # def test_simplify_directions_simplifies_octahedron_directions_from_antired(self):
     #     from_vector = RED.vector
     #     direction_list = [RED.vector, ANTI_GREEN.vector, BLUE.vector, ANTI_RED.vector, GREEN.vector, ANTI_BLUE.vector, ANTI_YELLOW.vector, YELLOW.vector]
