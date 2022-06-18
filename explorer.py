@@ -2,6 +2,7 @@ from enum import Enum, auto
 
 from relative_director import RelativeDirector
 from color_direction import RGB
+from rubik import Rubik
 
 class Explorer:
     def __init__(self, dungeon, initial_location, initial_direction, vertical=RGB.vector):
@@ -93,5 +94,9 @@ class Explorer:
         walls = self.describe()
         return [self.Option(str(i + 1),
                             self.Option.OptionType.GO,
-                            description.relative_directions)
-                for i, description in enumerate(walls)]
+                            wall.relative_directions)
+                for i, wall in enumerate(
+                        wall
+                        for wall in walls
+                        if wall.door_state == Rubik.DoorState.DOOR
+                )]

@@ -52,26 +52,30 @@ class TestExplorer(unittest.TestCase):
     def test_get_options_offers_movement(self):
         self.rb_g.door = True
         self.rbg_octa_ag.door = True
+        self.rb_b.door = True
         
         actual_description = self.test_obj.get_options()
-
-        self.assertEqual(len(actual_description), 4)
 
         actual_left = actual_description[0]
         self.assertEqual(actual_left.name, "1")
         self.assertEqual(actual_left.option_type, Explorer.Option.OptionType.GO)
         self.assertEqual(actual_left.relative_directions, [RelativeDirector.Direction.LEFT])
 
-    # def test_get_options_offers_movement_only_through_open_doors(self):
-    #     actual_description = self.test_obj.get_options()
-    #     actual_back = actual_description[0]
-    #     self.assertEqual(actual_back.name, "1")
-    #     self.assertEqual(actual_back.option_type, Explorer.Option.OptionType.GO)
-    #     self.assertEqual(actual_back.relative_directions, [RelativeDirector.Direction.BACK])
-    #     actual_down = actual_description[1]
-    #     self.assertEqual(actual_down.name, "2")
-    #     self.assertEqual(actual_down.option_type, Explorer.Option.OptionType.GO)
-    #     self.assertEqual(actual_down.relative_directions, [RelativeDirector.Direction.DOWN])
+        self.assertEqual(len(actual_description), 4)
+
+    def test_get_options_offers_movement_only_through_open_doors(self):
+        actual_description = self.test_obj.get_options()
+
+        actual_back = actual_description[0]
+        self.assertEqual(actual_back.name, "1")
+        self.assertEqual(actual_back.option_type, Explorer.Option.OptionType.GO)
+        self.assertEqual(actual_back.relative_directions, [RelativeDirector.Direction.BACK])
+        actual_down = actual_description[1]
+        self.assertEqual(actual_down.name, "2")
+        self.assertEqual(actual_down.option_type, Explorer.Option.OptionType.GO)
+        self.assertEqual(actual_down.relative_directions, [RelativeDirector.Direction.DOWN])
+
+        self.assertEqual(len(actual_description), 2)
 
 if __name__ == '__main__':
     unittest.main()
