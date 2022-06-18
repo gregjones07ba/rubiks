@@ -77,5 +77,11 @@ class TestExplorer(unittest.TestCase):
 
         self.assertEqual(len(actual_description), 2)
 
+    def test_executing_go_moves_to_next_room(self):
+        options = self.test_obj.get_options()
+        options[1].execute()
+        self.assertEqual(tuple(self.test_obj.location), (1, -1, -1))
+        
+
 if __name__ == '__main__':
     unittest.main()

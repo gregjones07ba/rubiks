@@ -12,7 +12,8 @@ class Explorer:
         self.relative_director = RelativeDirector(vertical)
 
     class WallDescription:
-        def __init__(self, relative_directions, description, door_state):
+        def __init__(self, direction, relative_directions, description, door_state):
+            self.direction = direction
             self.relative_directions = relative_directions
             self.description = description
             self.door_state = door_state
@@ -23,6 +24,7 @@ class Explorer:
         direction_map = self.relative_director.simplify_directions(self.direction, direction_set)
         description = [
             self.WallDescription(
+                wall_description.direction,
                 direction_map[tuple(wall_description.direction)],
                 wall_description.description,
                 wall_description.door_state
@@ -85,16 +87,25 @@ class Explorer:
         class OptionType(Enum):
             GO = auto()
             
-        def __init__(self, name, option_type, relative_directions):
+        def __init__(self, name, option_type, relative_directions, action):
             self.name = name
             self.option_type = option_type
             self.relative_directions = relative_directions
+            self.action = action
+
+        def execute(self):
+            (self.action)()
 
     def get_options(self):
+        def make_go_option(direction):
+            def go_option():
+                self.location = self.location + direction
+            return go_option
         walls = self.describe()
         return [self.Option(str(i + 1),
                             self.Option.OptionType.GO,
-                            wall.relative_directions)
+                            wall.relative_directions,
+                            make_go_option(wall.direction))
                 for i, wall in enumerate(
                         wall
                         for wall in walls
