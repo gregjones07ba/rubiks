@@ -1,5 +1,4 @@
 from enum import Enum
-
 from numpy import array, cross, subtract
 from math import isclose
 from itertools import chain, combinations
@@ -9,7 +8,7 @@ class RelativeDirector:
     def __init__(self, vertical=Z):
         self.vertical = vertical
 
-    class Directions(Enum):
+    class Direction(Enum):
         RIGHT = -1
         LEFT = 1
         BACK = -2
@@ -29,18 +28,18 @@ class RelativeDirector:
         dot_vertical = cross_product.dot(self.vertical)
         if isclose(dot_vertical, 0.0, abs_tol=1e-09):
             return None
-        return (self.Directions.LEFT
+        return (self.Direction.LEFT
                 if dot_vertical > 0
-                else self.Directions.RIGHT)
+                else self.Direction.RIGHT)
 
     def get_back_or_forward(self, from_vector, to_vector):
         floor_vector = self.__get_floor_vector(from_vector)
         dot_product = floor_vector.dot(to_vector)
         if isclose(dot_product, 0.0, abs_tol=1e-09):
             return None
-        return (self.Directions.FORWARD
+        return (self.Direction.FORWARD
                 if dot_product > 0
-                else self.Directions.BACK)
+                else self.Direction.BACK)
 
     def __get_floor_vector(self, vector):
         zenith_vector = self.__project_vector(vector, self.vertical)
@@ -53,9 +52,9 @@ class RelativeDirector:
         dot_vertical = to_vector.dot(self.vertical)
         if isclose(dot_vertical, 0.0, abs_tol=1e-09):
             return None
-        return (self.Directions.UP
+        return (self.Direction.UP
                 if dot_vertical > 0
-                else self.Directions.DOWN)
+                else self.Direction.DOWN)
 
     def simplify_directions(self, from_vector, direction_set):
         all_relative_directions_map = self.__get_all_relative_directions_map(from_vector, direction_set)

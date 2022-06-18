@@ -1,5 +1,6 @@
-from relative_director import RelativeDirector
+from enum import Enum, auto
 
+from relative_director import RelativeDirector
 from color_direction import RGB
 
 class Explorer:
@@ -78,3 +79,19 @@ class Explorer:
                 return self.__compare_directions(other) != 0
                 
         return sorted(description, key=lambda wall_description: SortableRelativeDirectionSet(wall_description.relative_directions))
+
+    class Option:
+        class OptionType(Enum):
+            GO = auto()
+            
+        def __init__(self, name, option_type, relative_directions):
+            self.name = name
+            self.option_type = option_type
+            self.relative_directions = relative_directions
+
+    def get_options(self):
+        walls = self.describe()
+        return [self.Option(str(i + 1),
+                            self.Option.OptionType.GO,
+                            description.relative_directions)
+                for i, description in enumerate(walls)]
