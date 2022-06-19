@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from math import isclose
 
 from relative_director import RelativeDirector
 from color_direction import RGB
@@ -9,7 +10,8 @@ class Explorer:
         self.dungeon = dungeon
         self.location = initial_location
         self.direction = initial_direction
-        self.relative_director = RelativeDirector(vertical)
+        self.vertical = vertical
+        self.relative_director = RelativeDirector(self.vertical)
 
     class WallDescription:
         def __init__(self, direction, relative_directions, description, door_state):
@@ -103,7 +105,10 @@ class Explorer:
         def make_go_option(direction):
             def go_option():
                 self.location = self.location + direction
-                self.direction = direction
+                if not all(isclose(c1, c2, abs_tol=1e-09)
+                           for c1, c2 in
+                           zip(direction, -self.vertical)):
+                    self.direction = direction
                 
             return go_option
         

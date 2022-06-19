@@ -81,6 +81,7 @@ class TestExplorer(unittest.TestCase):
         options = self.test_obj.get_options()
         options[1].execute()
         self.assertEqual(tuple(self.test_obj.location), (1, -1, -1))
+        self.assertEqual(tuple(self.test_obj.direction), tuple(ANTI_RED.vector))
 
     def test_excuting_go_right_moves_and_changes_direction(self):
         self.rb_g.door = True
