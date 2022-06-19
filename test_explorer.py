@@ -79,6 +79,7 @@ class TestExplorer(unittest.TestCase):
 
     def test_executing_go_moves_to_next_room(self):
         options = self.test_obj.get_options()
+        self.assertEqual(options[1].relative_directions, [RelativeDirector.Direction.DOWN])
         options[1].execute()
         self.assertEqual(tuple(self.test_obj.location), (1, -1, -1))
         self.assertEqual(tuple(self.test_obj.direction), tuple(ANTI_RED.vector))
