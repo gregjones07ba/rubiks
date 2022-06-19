@@ -1,8 +1,9 @@
 from enum import Enum, auto
-from math import isclose
 
 from relative_director import RelativeDirector
 from color_direction import RGB
+from utils import vectors_equal
+
 from rubik import Rubik
 
 class Explorer:
@@ -122,6 +123,4 @@ class Explorer:
                 )]
 
     def is_vertical(self, direction):
-        return all(isclose(c1, c2, abs_tol=1e-09)
-                           for c1, c2 in
-                           zip(direction, -self.vertical))
+        return vectors_equal(direction, -self.vertical)
