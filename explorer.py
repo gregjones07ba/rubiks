@@ -93,6 +93,9 @@ class Explorer:
             self.relative_directions = relative_directions
             self.action = action
 
+        def __str__(self):
+            return '{t} {dirs}'.format(t=self.option_type, dirs=self.relative_directions)
+
         def execute(self):
             (self.action)()
 
@@ -100,7 +103,10 @@ class Explorer:
         def make_go_option(direction):
             def go_option():
                 self.location = self.location + direction
+                self.direction = direction
+                
             return go_option
+        
         walls = self.describe()
         return [self.Option(str(i + 1),
                             self.Option.OptionType.GO,
