@@ -105,9 +105,7 @@ class Explorer:
         def make_go_option(direction):
             def go_option():
                 self.location = self.location + direction
-                if not all(isclose(c1, c2, abs_tol=1e-09)
-                           for c1, c2 in
-                           zip(direction, -self.vertical)):
+                if not self.is_vertical(direction):
                     self.direction = direction
                 
             return go_option
@@ -122,3 +120,8 @@ class Explorer:
                         for wall in walls
                         if wall.door_state == Rubik.DoorState.DOOR
                 )]
+
+    def is_vertical(self, direction):
+        return all(isclose(c1, c2, abs_tol=1e-09)
+                           for c1, c2 in
+                           zip(direction, -self.vertical))
