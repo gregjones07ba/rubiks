@@ -89,6 +89,7 @@ class TestExplorer(unittest.TestCase):
         self.rbg_octa_ag.door = True
 
         options = self.test_obj.get_options()
+        self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.RIGHT])
         options[0].execute()
 
         self.assertEqual(tuple(self.test_obj.direction), tuple(GREEN.vector))
