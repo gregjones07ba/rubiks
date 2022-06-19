@@ -27,9 +27,13 @@ class TestExplorer(unittest.TestCase):
         self.rb_y.door = True
         self.rgb_octa = rubik.get_cell(1, 1, 1)
         self.rgb_octa_ag = self.rgb_octa.wall_with_direction(ANTI_GREEN.vector)
+        self.rgb_octa_ay = self.rgb_octa.wall_with_direction(ANTI_YELLOW.vector)
         self.rby_octa = rubik.get_cell(1, -1, -1)
         self.rby_octa_ay = self.rby_octa.wall_with_direction(ANTI_YELLOW.vector)
         self.rby_octa_ay.door = True
+        self.rgb = rubik.get_cell(2, 2, 2)
+        self.rgb_y = self.rgb.wall_with_direction(YELLOW.vector)
+        self.rgb_y.door = True
         return rubik
 
     def test_describe_room_gives_relative_wall_descriptions(self):
@@ -84,7 +88,7 @@ class TestExplorer(unittest.TestCase):
         self.assertEqual(tuple(self.test_obj.location), (1, -1, -1))
         self.assertEqual(tuple(self.test_obj.direction), tuple(ANTI_RED.vector))
 
-    def test_excuting_go_right_moves_and_changes_direction(self):
+    def test_executing_go_right_moves_and_changes_direction(self):
         self.rb_g.door = True
         self.rgb_octa_ag.door = True
 
@@ -93,7 +97,21 @@ class TestExplorer(unittest.TestCase):
         options[0].execute()
 
         self.assertEqual(tuple(self.test_obj.direction), tuple(GREEN.vector))
+
+    def test_executing_go_up_doesnt_change_direction(self):
+        self.rb_g.door = True
+        self.rgb_octa_ag.door = True
+        self.rgb_octa_ay.door = True
         
+        options = self.test_obj.get_options()
+        self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.RIGHT])
+        options[0].execute()
+
+        options = self.test_obj.get_options()
+        self.assertEqual(options[1].relative_directions, [RelativeDirector.Direction.UP])
+        options[1].execute()
+
+        self.assertEqual(tuple(self.test_obj.direction), tuple(GREEN.vector))
 
 if __name__ == '__main__':
     unittest.main()

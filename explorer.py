@@ -123,4 +123,5 @@ class Explorer:
                 )]
 
     def is_vertical(self, direction):
-        return vectors_equal(direction, -self.vertical)
+        return (vectors_equal(direction, self.vertical) or
+                vectors_equal(direction, -self.vertical))
