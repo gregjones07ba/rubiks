@@ -25,8 +25,8 @@ class TestExplorer(unittest.TestCase):
         self.rb_y = self.rb.wall_with_direction(YELLOW.vector)
         self.rb_y.description = 'a bas relief of a sun phoenix'
         self.rb_y.door = True
-        self.rbg_octa = rubik.get_cell(1, 1, 1)
-        self.rbg_octa_ag = self.rbg_octa.wall_with_direction(ANTI_GREEN.vector)
+        self.rgb_octa = rubik.get_cell(1, 1, 1)
+        self.rgb_octa_ag = self.rgb_octa.wall_with_direction(ANTI_GREEN.vector)
         self.rby_octa = rubik.get_cell(1, -1, -1)
         self.rby_octa_ay = self.rby_octa.wall_with_direction(ANTI_YELLOW.vector)
         self.rby_octa_ay.door = True
@@ -51,7 +51,7 @@ class TestExplorer(unittest.TestCase):
 
     def test_get_options_offers_movement(self):
         self.rb_g.door = True
-        self.rbg_octa_ag.door = True
+        self.rgb_octa_ag.door = True
         self.rb_b.door = True
         
         actual_description = self.test_obj.get_options()
@@ -86,7 +86,7 @@ class TestExplorer(unittest.TestCase):
 
     def test_excuting_go_right_moves_and_changes_direction(self):
         self.rb_g.door = True
-        self.rbg_octa_ag.door = True
+        self.rgb_octa_ag.door = True
 
         options = self.test_obj.get_options()
         self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.RIGHT])
