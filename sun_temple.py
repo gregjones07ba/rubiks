@@ -1,6 +1,7 @@
 from rubik import Rubik
 from cell import Cell
 from color_direction import *
+from action import Action
 
 def create_pyraminx():
     pyraminx = Rubik(Cell.tetra_factory, Cell.octa_factory)
@@ -8,6 +9,8 @@ def create_pyraminx():
     rgb = pyraminx.get_cell(2, 2, 2)
     rgb_y = rgb.wall_with_direction(YELLOW.vector)
     rgb_y.door = True
+    rgb.custom_actions += [__create_ccw_rotation(pyraminx, 0),
+                           __creatw_cw_rotation(pyraminx, 0)]
 
     rb = pyraminx.get_cell(2, 0, 0)
     rb_r = rb.wall_with_direction(RED.vector)
@@ -38,6 +41,8 @@ def create_pyraminx():
     rby = pyraminx.get_cell(2, -2, -2)
     rby_g = rby.wall_with_direction(GREEN.vector)
     rby_g.door = True
+    rby.custom_actions += [__create_ccw_rotation(pyraminx, 3),
+                           __creatw_cw_rotation(pyraminx, 3)]
 
     rby_octa = pyraminx.get_cell(1, -1, -1)
     rby_octa_ay = rby_octa.wall_with_direction(ANTI_YELLOW.vector)
@@ -58,6 +63,8 @@ def create_pyraminx():
     rgy = pyraminx.get_cell(-2, 2, -2)
     rgy_b = rgy.wall_with_direction(BLUE.vector)
     rgy_b.door = True
+    rgy.custom_actions += [__create_ccw_rotation(pyraminx, 1),
+                           __creatw_cw_rotation(pyraminx, 1)]
 
     core = pyraminx.get_cell(0, 0, 0)
 
@@ -74,6 +81,20 @@ def create_pyraminx():
     gy = pyraminx.get_cell(-2, 0, 0)
 
     gby = pyraminx.get_cell(-2, -2, 2)
+    gby.custom_actions += [__create_ccw_rotation(pyraminx, 2),
+                           __creatw_cw_rotation(pyraminx, 2)]
     
     return pyraminx
 
+def __create_ccw_rotation(pyraminx, index):
+    def rotate_ccw():
+        pyraminx.rotate(index)
+
+    return Action("rotate ccw", rotate_ccw)
+
+def __create_cw_rotation(pyraminx, index):
+    def rotate_cw():
+        for i in range(2):
+            pyraminx.rotate(index)
+
+    return Action("rotate cw", rotate_cw)

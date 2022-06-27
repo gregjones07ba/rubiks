@@ -89,18 +89,28 @@ class Explorer:
     class Option:
         class OptionType(Enum):
             GO = auto()
+            CUSTOM = auto()
             
-        def __init__(self, name, option_type, relative_directions, action):
+        def __init__(self, name, option_type, action, description=None, relative_directions=None):
             self.name = name
             self.option_type = option_type
-            self.relative_directions = relative_directions
             self.action = action
+            self.description = description
+            self.relative_directions = relative_directions
 
         def __str__(self):
             return '{t} {dirs}'.format(t=self.option_type, dirs=self.relative_directions)
 
         def execute(self):
             (self.action)()
+
+    class GoOption(Option):
+        def __init__(self, name, action, relative_directions):
+            super().__init__(name, Explorer.Option.OptionType.GO, action, relative_directions=relative_directions)
+
+    class CustomOption(Option):
+        def __init__(self, name, action, description):
+            super().__init__(name, Explorer.Option.OptionType.CUSTOM, action, description=description)
 
     def get_options(self):
         def make_go_option(direction):
@@ -112,15 +122,20 @@ class Explorer:
             return go_option
         
         walls = self.describe()
-        return [self.Option(str(i + 1),
-                            self.Option.OptionType.GO,
-                            wall.relative_directions,
-                            make_go_option(wall.direction))
-                for i, wall in enumerate(
-                        wall
-                        for wall in walls
-                        if wall.door_state == Rubik.DoorState.DOOR
-                )]
+        go_options = [self.GoOption(str(i + 1),
+                                    make_go_option(wall.direction),
+                                    wall.relative_directions)
+                      for i, wall in enumerate(
+                              wall
+                              for wall in walls
+                              if wall.door_state == Rubik.DoorState.DOOR
+                      )]
+        cell = self.dungeon.get_cell(*self.location)
+        custom_options = [self.CustomOption(str(i + 1 + len(go_options)),
+                                            None, # TODO
+                                            action.description)
+                          for i, action in enumerate(cell.custom_actions)]
+        return go_options + custom_options
 
     def is_vertical(self, direction):
         return (vectors_equal(direction, self.vertical) or

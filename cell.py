@@ -21,6 +21,7 @@ class Cell:
             ((1, 0, 0),
              (0, 1, 0),
              (0, 0, 1))) # identity
+        self.custom_actions = []
 
     def rotate(self, rotation):
         self.rotation = rotation.dot(self.rotation)

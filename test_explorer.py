@@ -6,6 +6,7 @@ from rubik import Rubik
 from cell import Cell
 from color_direction import *
 from relative_director import RelativeDirector
+from action import Action
 
 class TestExplorer(unittest.TestCase):
     def setUp(self):
@@ -34,6 +35,7 @@ class TestExplorer(unittest.TestCase):
         self.rgb = rubik.get_cell(2, 2, 2)
         self.rgb_y = self.rgb.wall_with_direction(YELLOW.vector)
         self.rgb_y.door = True
+        self.rgb.custom_actions.append(Action("rotate", lambda: rubik.rotate(0)))
         return rubik
 
     def test_describe_room_gives_relative_wall_descriptions(self):
@@ -113,5 +115,22 @@ class TestExplorer(unittest.TestCase):
 
         self.assertEqual(tuple(self.test_obj.direction), tuple(GREEN.vector))
 
+    def test_offers_custom_option(self):
+        self.rb_g.door = True
+        self.rgb_octa_ag.door = True
+        self.rgb_octa_ay.door = True
+        
+        options = self.test_obj.get_options()
+        self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.RIGHT])
+        options[0].execute()
+
+        options = self.test_obj.get_options()
+        self.assertEqual(options[1].relative_directions, [RelativeDirector.Direction.UP])
+        options[1].execute()
+
+        options = self.test_obj.get_options()
+        self.assertEqual(options[1].option_type, Explorer.Option.OptionType.CUSTOM)
+        self.assertEqual(options[1].description, "rotate")
+        
 if __name__ == '__main__':
     unittest.main()
