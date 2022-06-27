@@ -131,6 +131,14 @@ class TestExplorer(unittest.TestCase):
         options = self.test_obj.get_options()
         self.assertEqual(options[1].option_type, Explorer.Option.OptionType.CUSTOM)
         self.assertEqual(options[1].description, "rotate")
+        options[1].execute()
+
+        options = self.test_obj.get_options()
+        self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.DOWN])
+        options[0].execute()
+
+        options = self.test_obj.get_options()
+        self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.RIGHT, RelativeDirector.Direction.FORWARD])
         
 if __name__ == '__main__':
     unittest.main()
