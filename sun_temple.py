@@ -10,7 +10,7 @@ def create_pyraminx():
     rgb_y = rgb.wall_with_direction(YELLOW.vector)
     rgb_y.door = True
     rgb.custom_actions += [__create_ccw_rotation(pyraminx, 0),
-                           __creatw_cw_rotation(pyraminx, 0)]
+                           __create_cw_rotation(pyraminx, 0)]
 
     rb = pyraminx.get_cell(2, 0, 0)
     rb_r = rb.wall_with_direction(RED.vector)
@@ -42,7 +42,7 @@ def create_pyraminx():
     rby_g = rby.wall_with_direction(GREEN.vector)
     rby_g.door = True
     rby.custom_actions += [__create_ccw_rotation(pyraminx, 3),
-                           __creatw_cw_rotation(pyraminx, 3)]
+                           __create_cw_rotation(pyraminx, 3)]
 
     rby_octa = pyraminx.get_cell(1, -1, -1)
     rby_octa_ay = rby_octa.wall_with_direction(ANTI_YELLOW.vector)
@@ -64,12 +64,12 @@ def create_pyraminx():
     rgy_b = rgy.wall_with_direction(BLUE.vector)
     rgy_b.door = True
     rgy.custom_actions += [__create_ccw_rotation(pyraminx, 1),
-                           __creatw_cw_rotation(pyraminx, 1)]
+                           __create_cw_rotation(pyraminx, 1)]
 
     core = pyraminx.get_cell(0, 0, 0)
 
     by = pyraminx.get_cell(0, -2, 0)
-    by_g = by.wall_with_direction(BLUE.vector)
+    by_g = by.wall_with_direction(GREEN.vector)
     by_g.door = True
     by_r = by.wall_with_direction(RED.vector)
     by_r.door = True
@@ -82,7 +82,7 @@ def create_pyraminx():
 
     gby = pyraminx.get_cell(-2, -2, 2)
     gby.custom_actions += [__create_ccw_rotation(pyraminx, 2),
-                           __creatw_cw_rotation(pyraminx, 2)]
+                           __create_cw_rotation(pyraminx, 2)]
     
     return pyraminx
 

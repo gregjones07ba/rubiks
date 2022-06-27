@@ -100,7 +100,10 @@ class ExploreInteract:
         ))
 
     def __describe_option(self, option):
-        return self.__describe_go_option(option)
+        if option.option_type == Explorer.Option.OptionType.GO:
+            return self.__describe_go_option(option)
+        else:
+            return self.__describe_custom_option(option)
 
     def __describe_go_option(self, option):
         return 'GO {direction}'.format(
@@ -124,6 +127,14 @@ class ExploreInteract:
 
     def __describe_movement_direction(self, relative_direction):
         return self.DIR_MAP[relative_direction]
+
+    def __describe_custom_option(self, option):
+        if option.description == "rotate ccw":
+            return "Rotate CCW"
+        elif option.description == "rotate cw":
+            return "Rotate CW"
+        else:
+            raise ValueError("Unrecognized option")
 
     def __read_command(self):
         return input('> ').strip()
