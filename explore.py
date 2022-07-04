@@ -14,6 +14,12 @@ class ExploreInteract:
         self.in_file = None
         self.out_file = None
 
+    def __try_load(self):
+        try:
+            self.__load()
+        except FileNotFoundError:
+            pass
+
     def __load(self):
         with open(self.DATA_FILE_PATH, 'r') as self.in_file:
             while(self.__load_step()):
@@ -192,7 +198,7 @@ class ExploreInteract:
             print("Unrecognized command")
 
     def run(self):
-        self.__load()
+        self.__try_load()
         self.__interact()
 
 def explore(rubik, initial_location, initial_direction, vertical=RGB.vector):
