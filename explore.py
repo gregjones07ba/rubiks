@@ -5,19 +5,48 @@ from rubik import Rubik
 
 class ExploreInteract:
     HR_LEN = 10
+    DATA_FILE_PATH = 'rubik_history.txt'
     
     def __init__(self, rubik, initial_location, initial_direction, vertical):
         self.rubik = rubik
-        self.explorer = Explorer(rubik, initial_location, initial_direction, vertical)
+        self.explorer = Explorer(self.rubik, initial_location, initial_direction, vertical)
         self.options = []
+        self.in_file = None
+        self.out_file = None
 
-    def step(self):
+    def __load(self):
+        with open(self.DATA_FILE_PATH, 'r') as self.in_file:
+            while(self.__load_step()):
+                pass
+            self.in_file.close()
+        self.in_file = None
+
+    def __load_step(self):
+        line = self.in_file.readline().strip()
+        if line:
+            self.options = self.explorer.get_options()
+            self.__execute(line)
+            return True
+        else:
+            return False
+
+    def __interact(self):
+        with open(self.DATA_FILE_PATH, 'a') as self.out_file:
+            while(self.__step()):
+                pass
+            self.out_file.close()
+        self.out_file = None
+
+    def __step(self):
         self.options = self.explorer.get_options()
+        self.__show()
+        return self.__act()
+        
+    def __show(self):
         self.__print_hr()
         print()
         self.__advise()
         print()
-        return self.__execute(self.__read_command())
 
     def __print_hr(self):
         print('=' * self.HR_LEN)
@@ -136,8 +165,19 @@ class ExploreInteract:
         else:
             raise ValueError("Unrecognized option")
 
+    def __act(self):
+        command = self.__read_command()
+        if self.__execute(command):
+            self.__record_command(command)
+            return True
+        else:
+            return False
+
     def __read_command(self):
         return input('> ').strip()
+
+    def __record_command(self, command):
+        self.out_file.write('{command}\n'.format(command=command))
 
     def __execute(self, command):
         selected_options = [ option
@@ -152,8 +192,8 @@ class ExploreInteract:
             print("Unrecognized command")
 
     def run(self):
-        while(self.step()):
-            pass
+        self.__load()
+        self.__interact()
 
 def explore(rubik, initial_location, initial_direction, vertical=RGB.vector):
     interact = ExploreInteract(rubik, initial_location, initial_direction, vertical)
