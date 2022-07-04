@@ -26,5 +26,11 @@ class TestFriendlyTetraCoordinates(unittest.TestCase):
         expected_coords = (-2, 0, 0)
         self.assertEquals(actual_coords, expected_coords)
 
+    def test_friendly_coords_returns_0_0_1_for_rgb_tetra(self):
+        location = array((1, 1, 1))
+        actual_coords = self.test_obj.friendly_coords(location)
+        expected_coords = (0, 0, 1)
+        self.assertEquals(actual_coords, expected_coords)
+
 if __name__ == '__main__':
     unittest.main()
