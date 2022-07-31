@@ -63,6 +63,18 @@ class ExploreInteract:
         self.__show_options()
 
     def __describe(self):
+        self.__describe_location()
+        self.__describe_walls()
+
+    def __describe_location(self):
+        location = self.explorer.locate()
+        print('File {file} | Rank {rank} | Tier {tier}'.format(
+            file=location[0],
+            rank=location[1],
+            tier=location[2]
+        ))
+
+    def __describe_walls(self):
         description = self.explorer.describe()
         for wall_description in description:
             self.__describe_wall(wall_description)
