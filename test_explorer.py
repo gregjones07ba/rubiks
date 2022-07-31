@@ -21,6 +21,7 @@ class TestExplorer(unittest.TestCase):
         self.rb_r = self.rb.wall_with_direction(RED.vector)
         self.rb_r.description = 'no remarkable features'
         self.rb_r.door = True
+        self.rb.name = 'rb'
         self.rb_g = self.rb.wall_with_direction(GREEN.vector)
         self.rb_g.description = 'a bas relief of a dream phoenix'
         self.rb_b = self.rb.wall_with_direction(BLUE.vector)
@@ -145,6 +146,10 @@ class TestExplorer(unittest.TestCase):
     def test_locate_gives_friendly_location(self):
         location = self.test_obj.locate()
         self.assertEqual(location, (-1, 0, 1))
+
+    def test_name_gives_cell_name_at_location(self):
+        name = self.test_obj.name()
+        self.assertEqual(name, 'rb')
         
 if __name__ == '__main__':
     unittest.main()

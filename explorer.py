@@ -148,3 +148,6 @@ class Explorer:
 
     def locate(self):
         return self.friendly_coordinates.friendly_coords(self.location)
+
+    def name(self):
+        return self.dungeon.get_cell(*self.location).name
