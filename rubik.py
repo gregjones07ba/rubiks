@@ -5,7 +5,6 @@ from rotation import Rotation
 from color_direction import RGB, RGY, GBY, RBY
 
 # TODO
-# Display coordinates
 # Display name
 # God mode
 
