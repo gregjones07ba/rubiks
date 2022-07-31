@@ -199,7 +199,10 @@ class ExploreInteract:
             return False
 
     def __read_command(self):
-        return input('> ').strip()
+        try:
+            return input('> ').strip()
+        except EOFError:
+            return 'q'
 
     def __record_command(self, command):
         self.out_file.write('{command}\n'.format(command=command))
