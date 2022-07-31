@@ -6,7 +6,6 @@ from color_direction import RGB, RGY, GBY, RBY
 
 # TODO
 # Display name
-# God mode
 
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
