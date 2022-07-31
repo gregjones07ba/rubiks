@@ -4,9 +4,6 @@ from numpy import array
 from rotation import Rotation
 from color_direction import RGB, RGY, GBY, RBY
 
-# TODO
-# Display name
-
 class Rubik:
     """Currently supports pyraminx tetrahedron only"""
     class DoorState(Enum):
