@@ -217,6 +217,9 @@ class ExploreInteract:
         self.__try_load()
         self.__interact()
 
+    def goto(self, x, y, z):
+        self.explorer.location = array((x, y, z))
+
 def explore(rubik, initial_location, initial_direction, vertical=RGB.vector):
     interact = ExploreInteract(rubik, initial_location, initial_direction, vertical)
     interact.run()
