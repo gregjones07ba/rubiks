@@ -6,6 +6,7 @@ from rubik import Rubik
 class ExploreInteract:
     HR_LEN = 10
     DATA_FILE_PATH = 'rubik_history.txt'
+    GOD_PREFIX = 'g:'
     
     def __init__(self, rubik, initial_location, initial_direction, vertical):
         self.rubik = rubik
@@ -206,6 +207,9 @@ class ExploreInteract:
             return True
         elif command in ['q', 'quit', 'exit']:
             return False
+        elif command.startswith(self.GOD_PREFIX):
+            exec(command[len(self.GOD_PREFIX):])
+            return True
         else:
             print("Unrecognized command")
 
