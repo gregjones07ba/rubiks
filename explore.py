@@ -64,8 +64,14 @@ class ExploreInteract:
         self.__show_options()
 
     def __describe(self):
+        self.__name_location()
         self.__describe_location()
         self.__describe_walls()
+
+    def __name_location(self):
+        print('Cell {name}'.format(
+            name=self.explorer.name()
+        ))
 
     def __describe_location(self):
         location = self.explorer.locate()
