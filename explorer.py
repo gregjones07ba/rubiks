@@ -5,14 +5,19 @@ from color_direction import RGB
 from utils import vectors_equal
 
 from rubik import Rubik
+from friendly_tetra_coordinates import FriendlyTetraCoordinates
 
 class Explorer:
-    def __init__(self, dungeon, initial_location, initial_direction, vertical=RGB.vector):
+    def __init__(self, dungeon, initial_location, initial_direction, vertical=RGB.vector, friendly_coordinates=None):
         self.dungeon = dungeon
         self.location = initial_location
         self.direction = initial_direction
         self.vertical = vertical
         self.relative_director = RelativeDirector(self.vertical)
+        if friendly_coordinates is None:
+            self.friendly_coordinates = FriendlyTetraCoordinates()
+        else:
+            self.friendly_coordinates = friendly_coordinates
 
     class WallDescription:
         def __init__(self, direction, relative_directions, description, door_state):
@@ -116,7 +121,7 @@ class Explorer:
         def make_go_option(direction):
             def go_option():
                 self.location = self.location + direction
-                if not self.is_vertical(direction):
+                if not self.__is_vertical(direction):
                     self.direction = direction
                 
             return go_option
@@ -137,6 +142,9 @@ class Explorer:
                           for i, action in enumerate(cell.custom_actions)]
         return go_options + custom_options
 
-    def is_vertical(self, direction):
+    def __is_vertical(self, direction):
         return (vectors_equal(direction, self.vertical) or
                 vectors_equal(direction, -self.vertical))
+
+    def locate(self):
+        return self.friendly_coordinates.friendly_coords(self.location)

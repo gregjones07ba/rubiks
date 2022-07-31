@@ -1,5 +1,7 @@
 import unittest
 
+from numpy import array
+
 from explorer import Explorer
 
 from rubik import Rubik
@@ -11,7 +13,7 @@ from action import Action
 class TestExplorer(unittest.TestCase):
     def setUp(self):
         pyraminx = self.__initialize_rubik()
-        self.test_obj = Explorer(pyraminx, (2, 0, 0), ANTI_RED.vector)
+        self.test_obj = Explorer(pyraminx, array((2, 0, 0)), ANTI_RED.vector)
 
     def __initialize_rubik(self):
         rubik = Rubik(Cell.tetra_factory, Cell.octa_factory)
@@ -139,6 +141,10 @@ class TestExplorer(unittest.TestCase):
 
         options = self.test_obj.get_options()
         self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.RIGHT, RelativeDirector.Direction.FORWARD])
+
+    def test_locate_gives_friendly_location(self):
+        location = self.test_obj.locate()
+        self.assertEqual(location, (-1, 0, 1))
         
 if __name__ == '__main__':
     unittest.main()
