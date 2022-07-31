@@ -85,6 +85,13 @@ class Rubik:
         self.__cells = []
         tf = self.tetra_factory
         of = self.octa_factory
+        center_tetra = tf(0, 0, 0)
+        # rotate 180 degrees around y=x
+        center_tetra.rotate(array((
+            (0, 1, 0),
+            (1, 0, 0),
+            (0, 0, -1)
+        )))
         cells = [
             tf(2, 2, 2),
             tf(2, 0, 0),
@@ -96,7 +103,7 @@ class Rubik:
             tf(0, 0, -2),
             of(-1, 1, -1),
             tf(-2, 2, -2),
-            tf(0, 0, 0), #TODO: invert
+            center_tetra,
             tf(0, -2, 0),
             of(-1, -1, 1),
             tf(-2, 0, 0),

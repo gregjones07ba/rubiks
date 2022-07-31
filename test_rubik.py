@@ -43,7 +43,7 @@ class TestRubik(unittest.TestCase):
         self.assertEqual(tuple(gby_again.walls[0].direction), (1, 1, -1))
         center_again = self.test_obj.get_cell(0, 0, 0)
         self.assertEqual(center_again.walls[0].description, "center")
-        self.assertEqual(tuple(center_again.walls[0].direction), (1, 1, -1))
+        self.assertEqual(tuple(center_again.walls[0].direction), (1, 1, 1))
         rgb_octa_again = self.test_obj.get_cell(1, 1, 1)
         self.assertEqual(rgb_octa_again.walls[0].description, "rgb_octa")
         rgb_again = self.test_obj.get_cell(2, 2, 2)
@@ -201,6 +201,22 @@ class TestRubik(unittest.TestCase):
             Rubik.WallDescription(YELLOW.vector, 'yellow', Rubik.DoorState.NO_DOOR)
         ]
         actual_description = self.test_obj.describe_cell(0, 0, 2)
+        self.assertEqual(actual_description, expected_description)
+
+    def test_describe_cell_describes_center_tetra_with_roof_and_three_walls(self):
+        gb = self.test_obj.get_cell(0, 0, 0)
+        gb.walls[0].description = 'red'
+        gb.walls[1].description = 'green'
+        gb.walls[2].description = 'blue'
+        gb.walls[3].description = 'yellow'
+        
+        expected_description = [
+            Rubik.WallDescription(ANTI_YELLOW.vector, 'red', Rubik.DoorState.NO_DOOR),
+            Rubik.WallDescription(ANTI_GREEN.vector, 'green', Rubik.DoorState.NO_DOOR),
+            Rubik.WallDescription(ANTI_BLUE.vector, 'blue', Rubik.DoorState.NO_DOOR),
+            Rubik.WallDescription(ANTI_RED.vector, 'yellow', Rubik.DoorState.NO_DOOR)
+        ]
+        actual_description = self.test_obj.describe_cell(0, 0, 0)
         self.assertEqual(actual_description, expected_description)
         
 if __name__ == '__main__':
