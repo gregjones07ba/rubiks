@@ -221,6 +221,7 @@ class ExploreInteract:
             return True
         else:
             print("Unrecognized command")
+            return True
 
     def run(self):
         self.__try_load()
