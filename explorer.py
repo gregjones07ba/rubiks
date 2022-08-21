@@ -128,8 +128,7 @@ class Explorer:
         def make_go_option(direction):
             def go_option():
                 self.location = self.location + direction
-                if not self.__is_vertical(direction):
-                    self.direction = direction
+                self.direction = self.__update_direction(direction)
                 
             return go_option
 
@@ -162,6 +161,12 @@ class Explorer:
                                             action.description)
                           for i, action in enumerate(cell.custom_actions)]
         return go_options + look_options + custom_options
+
+    def __update_direction(self, direction):
+        if self.__is_vertical(direction):
+            return self.direction
+        else:
+            return direction
 
     def __is_vertical(self, direction):
         return (vectors_equal(direction, self.vertical) or
