@@ -94,6 +94,7 @@ class Explorer:
     class Option:
         class OptionType(Enum):
             GO = auto()
+            LOOK = auto()
             CUSTOM = auto()
             
         def __init__(self, name, option_type, action, description=None, relative_directions=None):
@@ -113,6 +114,10 @@ class Explorer:
         def __init__(self, name, action, relative_directions):
             super().__init__(name, Explorer.Option.OptionType.GO, action, relative_directions=relative_directions)
 
+    class LookOption(Option):
+        def __init__(self, name, action, relative_directions):
+            super().__init__(name, Explorer.Option.OptionType.LOOK, action, relative_directions=relative_directions)
+
     class CustomOption(Option):
         def __init__(self, name, action, description):
             super().__init__(name, Explorer.Option.OptionType.CUSTOM, action, description=description)
@@ -125,6 +130,12 @@ class Explorer:
                     self.direction = direction
                 
             return go_option
+
+        def make_look_option(direction):
+            def look_option():
+                pass
+
+            return look_option
         
         walls = self.describe()
         go_options = [self.GoOption(str(i + 1),
@@ -135,12 +146,20 @@ class Explorer:
                               for wall in walls
                               if wall.door_state == Rubik.DoorState.DOOR
                       )]
+        look_options = [self.LookOption(str(i + len(go_options) + 1),
+                                        make_look_option(wall.direction),
+                                        wall.relative_directions)
+                        for i, wall in enumerate(
+                                wall
+                                for wall in walls
+                                if wall.door_state == Rubik.DoorState.DOOR
+                        )]
         cell = self.dungeon.get_cell(*self.location)
         custom_options = [self.CustomOption(str(i + 1 + len(go_options)),
                                             action.action,
                                             action.description)
                           for i, action in enumerate(cell.custom_actions)]
-        return go_options + custom_options
+        return go_options + look_options + custom_options
 
     def __is_vertical(self, direction):
         return (vectors_equal(direction, self.vertical) or

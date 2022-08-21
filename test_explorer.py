@@ -70,7 +70,7 @@ class TestExplorer(unittest.TestCase):
         self.assertEqual(actual_left.option_type, Explorer.Option.OptionType.GO)
         self.assertEqual(actual_left.relative_directions, [RelativeDirector.Direction.LEFT])
 
-        self.assertEqual(len(actual_description), 4)
+        self.assertEqual(len(actual_description), 8)
 
     def test_get_options_offers_movement_only_through_open_doors(self):
         actual_description = self.test_obj.get_options()
@@ -84,7 +84,7 @@ class TestExplorer(unittest.TestCase):
         self.assertEqual(actual_down.option_type, Explorer.Option.OptionType.GO)
         self.assertEqual(actual_down.relative_directions, [RelativeDirector.Direction.DOWN])
 
-        self.assertEqual(len(actual_description), 2)
+        self.assertEqual(len(actual_description), 4)
 
     def test_executing_go_moves_to_next_room(self):
         options = self.test_obj.get_options()
@@ -132,9 +132,9 @@ class TestExplorer(unittest.TestCase):
         options[1].execute()
 
         options = self.test_obj.get_options()
-        self.assertEqual(options[1].option_type, Explorer.Option.OptionType.CUSTOM)
-        self.assertEqual(options[1].description, "rotate")
-        options[1].execute()
+        self.assertEqual(options[2].option_type, Explorer.Option.OptionType.CUSTOM)
+        self.assertEqual(options[2].description, "rotate")
+        options[2].execute()
 
         options = self.test_obj.get_options()
         self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.DOWN])
@@ -162,6 +162,20 @@ class TestExplorer(unittest.TestCase):
         options[0].execute()
         dir = self.test_obj.direct()
         self.assertEqual(dir, "GREEN")
+
+    def test_get_options_offers_look(self):
+        self.rb_g.door = True
+        self.rgb_octa_ag.door = True
+        self.rb_b.door = True
+        
+        actual_options = self.test_obj.get_options()
+
+        actual_look_right = actual_options[5]
+        self.assertEqual(actual_look_right.name, "6")
+        self.assertEqual(actual_look_right.option_type, Explorer.Option.OptionType.LOOK)
+        self.assertEqual(actual_look_right.relative_directions, [RelativeDirector.Direction.RIGHT])
+        
+        self.assertEqual(len(actual_options), 8)
         
 if __name__ == '__main__':
     unittest.main()
