@@ -26,12 +26,14 @@ class Explorer:
             self.description = description
             self.door_state = door_state
 
-    def describe(self, location=None):
+    def describe(self, location=None, direction=None):
         if location is None:
             location = self.location
+        if direction is None:
+            direction = self.direction
         room_description = self.dungeon.describe_cell(*location)
         direction_set = self.__get_direction_set(room_description)
-        direction_map = self.relative_director.simplify_directions(self.direction, direction_set)
+        direction_map = self.relative_director.simplify_directions(direction, direction_set)
         description = [
             self.WallDescription(
                 wall_description.direction,
@@ -134,7 +136,10 @@ class Explorer:
 
         def make_look_option(direction):
             def look_option():
-                return self.describe(self.location + direction)
+                return self.describe(
+                    location = self.location + direction,
+                    direction = self.__update_direction(direction)
+                )
 
             return look_option
         

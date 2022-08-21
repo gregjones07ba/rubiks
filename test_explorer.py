@@ -183,27 +183,12 @@ class TestExplorer(unittest.TestCase):
         next_room_down = next_room_description[7]
         self.assertEqual(next_room_down.relative_directions, [RelativeDirector.Direction.DOWN])
         self.assertEqual(next_room_down.description, 'a mosaic of a merman')
+
+        next_room_right = next_room_description[3]
+        self.assertEqual(next_room_right.relative_directions, [RelativeDirector.Direction.RIGHT, RelativeDirector.Direction.BACK])
+        self.assertEqual(next_room_right.description, 'a fresco of a tree')
         
         self.assertEqual(len(actual_options), 8)
-
-    # def test_look_describes_directions_relative_to_direction_looked(self):
-    #     self.rb_g.door = True
-    #     self.rgb_octa_ag.door = True
-    #     self.rb_b.door = True
-        
-    #     actual_options = self.test_obj.get_options()
-
-    #     actual_look_right = actual_options[5]
-    #     self.assertEqual(actual_look_right.name, "6")
-    #     self.assertEqual(actual_look_right.option_type, Explorer.Option.OptionType.LOOK)
-    #     self.assertEqual(actual_look_right.relative_directions, [RelativeDirector.Direction.RIGHT])
-
-    #     next_room_description = actual_look_right.execute()
-    #     next_room_right = next_room_description[1]
-    #     self.assertEqual(next_room_right.relative_directions, [RelativeDirector.Direction.BACK, RelativeDirector.Direction.RIGHT])
-    #     self.assertEqual(next_room_right.description, 'a fresco of a tree')
-        
-    #     self.assertEqual(len(actual_options), 8)
-        
+       
 if __name__ == '__main__':
     unittest.main()
