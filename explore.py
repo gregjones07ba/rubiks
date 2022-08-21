@@ -67,7 +67,7 @@ class ExploreInteract:
         self.__name_location()
         self.__describe_location()
         self.__describe_facing()
-        self.__describe_walls()
+        self.__describe_room()
 
     def __name_location(self):
         print('Cell {name}'.format(
@@ -89,8 +89,10 @@ class ExploreInteract:
                 dir=dir
             ))
 
-    def __describe_walls(self):
-        description = self.explorer.describe()
+    def __describe_room(self):
+        self.__describe_walls(self.explorer.describe())
+
+    def __describe_walls(self, description):
         for wall_description in description:
             self.__describe_wall(wall_description)
 
@@ -164,11 +166,18 @@ class ExploreInteract:
     def __describe_option(self, option):
         if option.option_type == Explorer.Option.OptionType.GO:
             return self.__describe_go_option(option)
+        elif option.option_type == Explorer.Option.OptionType.LOOK:
+            return self.__describe_look_option(option)
         else:
             return self.__describe_custom_option(option)
 
     def __describe_go_option(self, option):
         return 'GO {direction}'.format(
+            direction = self.__describe_movement_directions(option.relative_directions)
+        )
+
+    def __describe_look_option(self, option):
+        return 'LOOK {direction}'.format(
             direction = self.__describe_movement_directions(option.relative_directions)
         )
 
@@ -220,7 +229,9 @@ class ExploreInteract:
                              for option in self.options
                              if option.name == command ]
         if selected_options:
-            selected_options[0].execute()
+            result = selected_options[0].execute()
+            if result:
+                self.__show_result(result)
             return True
         elif command in ['q', 'quit', 'exit']:
             return False
@@ -230,6 +241,9 @@ class ExploreInteract:
         else:
             print("Unrecognized command")
             return True
+
+    def __show_result(self, result):
+        self.__describe_walls(result)
 
     def run(self):
         self.__try_load()
