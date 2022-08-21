@@ -150,6 +150,10 @@ class TestExplorer(unittest.TestCase):
     def test_name_gives_cell_name_at_location(self):
         name = self.test_obj.name()
         self.assertEqual(name, 'rb')
+
+    def test_direct_gives_friendly_direction(self):
+        dir = self.test_obj.direct()
+        self.assertEqual(dir, "ANTI-RED")
         
 if __name__ == '__main__':
     unittest.main()
