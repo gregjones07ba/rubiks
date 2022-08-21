@@ -242,6 +242,9 @@ class ExploreInteract:
             return True
         elif command in ['q', 'quit', 'exit']:
             return False
+        elif command in ['d', 'describe']:
+            # no-op; description will be printed in next step
+            return True
         elif command.startswith(self.GOD_PREFIX):
             exec(command[len(self.GOD_PREFIX):])
             return True
@@ -254,6 +257,7 @@ class ExploreInteract:
 
     def run(self):
         self.__try_load()
+        self.__suppress_show = False
         self.__interact()
 
     def goto(self, x, y, z):
