@@ -64,6 +64,8 @@ def create_pyraminx():
     rby_octa.name = '7.rby8'
 
     ry = pyraminx.get_cell(0, 0, -2)
+    ry_r = ry.wall_with_direction(RED.vector)
+    ry_r.description = "a rectangular door with its base on the yellow face"
     ry_g = ry.wall_with_direction(GREEN.vector)
     ry_g.door = True
     ry_b = ry.wall_with_direction(BLUE.vector)
@@ -94,6 +96,8 @@ def create_pyraminx():
     by_r.door = True
     by_g = by.wall_with_direction(GREEN.vector)
     by_g.door = True
+    by_b = by.wall_with_direction(BLUE.vector)
+    by_b.description = "a rectangular door with its base on the yellow face"
     by.name = '12.by'
 
     gby_octa = pyraminx.get_cell(-1, -1, 1)
