@@ -14,6 +14,7 @@ class ExploreInteract:
         self.options = []
         self.in_file = None
         self.out_file = None
+        self.__suppress_show = False
 
     def __try_load(self):
         try:
@@ -46,8 +47,13 @@ class ExploreInteract:
 
     def __step(self):
         self.options = self.explorer.get_options()
-        self.__show()
+        self.__maybe_show()
         return self.__act()
+
+    def __maybe_show(self):
+        if not self.__suppress_show:
+            self.__show()
+        self.__suppress_show = False
         
     def __show(self):
         self.__print_hr()
@@ -232,6 +238,7 @@ class ExploreInteract:
             result = selected_options[0].execute()
             if result:
                 self.__show_result(result)
+                self.__suppress_show = True
             return True
         elif command in ['q', 'quit', 'exit']:
             return False
