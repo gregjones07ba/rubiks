@@ -26,8 +26,10 @@ class Explorer:
             self.description = description
             self.door_state = door_state
 
-    def describe(self):
-        room_description = self.dungeon.describe_cell(*self.location)
+    def describe(self, location=None):
+        if location is None:
+            location = self.location
+        room_description = self.dungeon.describe_cell(*location)
         direction_set = self.__get_direction_set(room_description)
         direction_map = self.relative_director.simplify_directions(self.direction, direction_set)
         description = [
@@ -108,7 +110,7 @@ class Explorer:
             return '{t} {dirs}'.format(t=self.option_type, dirs=self.relative_directions)
 
         def execute(self):
-            (self.action)()
+            return (self.action)()
 
     class GoOption(Option):
         def __init__(self, name, action, relative_directions):
@@ -133,7 +135,7 @@ class Explorer:
 
         def make_look_option(direction):
             def look_option():
-                pass
+                return self.describe(self.location + direction)
 
             return look_option
         
