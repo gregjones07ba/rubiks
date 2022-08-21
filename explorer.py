@@ -161,7 +161,7 @@ class Explorer:
                                 if wall.door_state == Rubik.DoorState.DOOR
                         )]
         cell = self.dungeon.get_cell(*self.location)
-        custom_options = [self.CustomOption(str(i + 1 + len(go_options)),
+        custom_options = [self.CustomOption(str(i + len(go_options) + len(look_options) + 1),
                                             action.action,
                                             action.description)
                           for i, action in enumerate(cell.custom_actions)]

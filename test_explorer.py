@@ -137,6 +137,7 @@ class TestExplorer(unittest.TestCase):
 
         options = self.test_obj.get_options()
         self.assertEqual(options[2].option_type, Explorer.Option.OptionType.CUSTOM)
+        self.assertEqual(options[2].name, "3")
         self.assertEqual(options[2].description, "rotate")
         options[2].execute()
 
