@@ -66,6 +66,7 @@ class ExploreInteract:
     def __describe(self):
         self.__name_location()
         self.__describe_location()
+        self.__describe_facing()
         self.__describe_walls()
 
     def __name_location(self):
@@ -80,6 +81,13 @@ class ExploreInteract:
             rank=location[1],
             tier=location[2]
         ))
+
+    def __describe_facing(self):
+        dir = self.explorer.direct()
+        if dir:
+            print('Facing {dir}'.format(
+                dir=dir
+            ))
 
     def __describe_walls(self):
         description = self.explorer.describe()
