@@ -153,6 +153,7 @@ class Explorer:
         for color_direction in octa_colors:
             if vectors_equal(self.direction, color_direction.vector):
                 return color_direction.name.upper()
+        return None
 
     def name(self):
         return self.dungeon.get_cell(*self.location).name
