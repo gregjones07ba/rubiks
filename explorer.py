@@ -1,7 +1,7 @@
 from enum import Enum, auto
 
 from relative_director import RelativeDirector
-from color_direction import RGB
+from color_direction import RGB, octa_colors
 from utils import vectors_equal
 
 from rubik import Rubik
@@ -150,7 +150,9 @@ class Explorer:
         return self.friendly_coordinates.friendly_coords(self.location)
 
     def direct(self):
-        return "ANTI-RED"
+        for color_direction in octa_colors:
+            if vectors_equal(self.direction, color_direction.vector):
+                return color_direction.name.upper()
 
     def name(self):
         return self.dungeon.get_cell(*self.location).name
