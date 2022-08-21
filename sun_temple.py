@@ -107,7 +107,6 @@ def create_pyraminx():
 
     gy = pyraminx.get_cell(-2, 0, 0)
     gy_g = gy.wall_with_direction(GREEN.vector)
-    gy_g.door = True
     gy_g.description = "a rectangular door with its base on the yellow face"
     gy_b = gy.wall_with_direction(BLUE.vector)
     gy_b.door = True
