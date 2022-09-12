@@ -121,7 +121,7 @@ def create_pyraminx():
     rgy_octa_ay.description = 'a staircase leading to the side door and a sculpture of a flower'
     rgy_octa_ab = rgy_octa.wall_with_direction(ANTI_BLUE.vector)
     rgy_octa_ab.door = True
-    rgy_octa_ab.door = 'a door with an indentation in the shape of a 2-pointed asterisk'
+    rgy_octa_ab.description = 'a door with an indentation in the shape of a 2-pointed asterisk'
     rgy_octa_ag = rgy_octa.wall_with_direction(ANTI_GREEN.vector)
     rgy_octa_ag.door = True
     rgy_octa_ag.description = 'a staircase leading to the side door'
@@ -130,7 +130,7 @@ def create_pyraminx():
     rgy_octa_g = rgy_octa.wall_with_direction(GREEN.vector)
     rgy_octa_g.description = 'a glowing green globe'
     rgy_octa_y = rgy_octa.wall_with_direction(YELLOW.vector)
-    rgy_octa_y.description = 'limestone colimns carved into naturalistic shapes of tree trunsk, branches, and roots. The room is full of water'
+    rgy_octa_y.description = 'limestone columns carved into naturalistic shapes of tree trunks, branches, and roots. The room is full of water'
     rgy_octa.name = '9.rgy8'
 
     rgy = pyraminx.get_cell(-2, 2, -2)
@@ -171,7 +171,7 @@ def create_pyraminx():
     gby_octa_ay = gby_octa.wall_with_direction(ANTI_YELLOW.vector)
     gby_octa_ay.description = 'three bells hung from the corners. A chest suspended in a bell in the center of the room'
     gby_octa_y = gby_octa.wall_with_direction(YELLOW.vector)
-    gby_octa_y.description = 'delicate gothic arches of purple porphyry supporting the staircases'
+    gby_octa_y.description = 'delicate gothic arches of purple porphyry supporting the staircases. The room is full of water'
     gby_octa.name = '13.gby8'
 
     gy = pyraminx.get_cell(-2, 0, 0)
