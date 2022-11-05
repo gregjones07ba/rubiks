@@ -181,6 +181,9 @@ class TestExplorer(unittest.TestCase):
         self.assertEqual(actual_look_right.relative_directions, [RelativeDirector.Direction.RIGHT])
 
         next_room_description = actual_look_right.execute()
+
+        self.assertEqual(tuple(self.test_obj.direction), tuple(GREEN.vector))
+        
         next_room_down = next_room_description[7]
         self.assertEqual(next_room_down.relative_directions, [RelativeDirector.Direction.DOWN])
         self.assertEqual(next_room_down.description, 'a mosaic of a merman')

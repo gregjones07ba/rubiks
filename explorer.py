@@ -136,9 +136,9 @@ class Explorer:
 
         def make_look_option(direction):
             def look_option():
+                self.direction = self.__update_direction(direction)
                 return self.describe(
-                    location = self.location + direction,
-                    direction = self.__update_direction(direction)
+                    location = self.location + direction
                 )
 
             return look_option
