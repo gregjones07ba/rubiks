@@ -30,8 +30,9 @@ class ExploreInteract:
         self.in_file = None
 
     def __load_step(self):
-        line = self.in_file.readline().strip()
-        if line:
+        raw_line = self.in_file.readline()
+        if raw_line:
+            line = raw_line.strip()
             self.options = self.explorer.get_options()
             self.__execute(line)
             return True
@@ -260,8 +261,14 @@ class ExploreInteract:
         self.__suppress_show = False
         self.__interact()
 
+    # god mode commands
     def goto(self, x, y, z):
         self.explorer.location = array((x, y, z))
+
+    def tag(self, tag):
+        cell = self.explorer.dungeon.get_cell(*tuple(self.explorer.location))
+        wall = cell.wall_with_direction(self.explorer.direction)
+        wall.description += " t: " + tag
 
 def explore(rubik, initial_location, initial_direction, vertical=RGB.vector):
     interact = ExploreInteract(rubik, initial_location, initial_direction, vertical)
