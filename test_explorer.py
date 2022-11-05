@@ -88,7 +88,7 @@ class TestExplorer(unittest.TestCase):
         self.assertEqual(actual_down.option_type, Explorer.Option.OptionType.GO)
         self.assertEqual(actual_down.relative_directions, [RelativeDirector.Direction.DOWN])
 
-        self.assertEqual(len(actual_description), 4)
+        self.assertEqual(len(actual_description), 6)
 
     def test_executing_go_moves_to_next_room(self):
         options = self.test_obj.get_options()
@@ -136,10 +136,10 @@ class TestExplorer(unittest.TestCase):
         options[1].execute()
 
         options = self.test_obj.get_options()
-        self.assertEqual(options[2].option_type, Explorer.Option.OptionType.CUSTOM)
-        self.assertEqual(options[2].name, "3")
-        self.assertEqual(options[2].description, "rotate")
-        options[2].execute()
+        self.assertEqual(options[5].option_type, Explorer.Option.OptionType.CUSTOM)
+        self.assertEqual(options[5].name, "6")
+        self.assertEqual(options[5].description, "rotate")
+        options[5].execute()
 
         options = self.test_obj.get_options()
         self.assertEqual(options[0].relative_directions, [RelativeDirector.Direction.DOWN])
@@ -193,6 +193,27 @@ class TestExplorer(unittest.TestCase):
         self.assertEqual(next_room_right.description, 'a fresco of a tree')
         
         self.assertEqual(len(actual_options), 8)
+
+    def test_get_options_offers_look_to_face_wall_without_door(self):
+        self.rb_g.door = True
+        self.rb_b.door = True
+        
+        actual_options = self.test_obj.get_options()
+
+        actual_look_right = actual_options[4]
+        self.assertEqual(actual_look_right.name, "5")
+        self.assertEqual(actual_look_right.option_type, Explorer.Option.OptionType.LOOK)
+        self.assertEqual(actual_look_right.relative_directions, [RelativeDirector.Direction.RIGHT])
+
+        next_room_description = actual_look_right.execute()
+
+        self.assertEqual(tuple(self.test_obj.direction), tuple(GREEN.vector))
+        
+        next_room_right = next_room_description[2]
+        self.assertEqual(next_room_right.relative_directions, [RelativeDirector.Direction.FORWARD])
+        self.assertEqual(next_room_right.description, 'a bas relief of a dream phoenix')
+        
+        self.assertEqual(len(actual_options), 7)
        
 if __name__ == '__main__':
     unittest.main()

@@ -134,11 +134,11 @@ class Explorer:
                 
             return go_option
 
-        def make_look_option(direction):
+        def make_look_option(direction, is_door_open):
             def look_option():
                 self.direction = self.__update_direction(direction)
                 return self.describe(
-                    location = self.location + direction
+                    location = self.location + direction if is_door_open else self.location
                 )
 
             return look_option
@@ -153,12 +153,11 @@ class Explorer:
                               if wall.door_state == Rubik.DoorState.DOOR
                       )]
         look_options = [self.LookOption(str(i + len(go_options) + 1),
-                                        make_look_option(wall.direction),
+                                        make_look_option(wall.direction, wall.door_state == Rubik.DoorState.DOOR),
                                         wall.relative_directions)
                         for i, wall in enumerate(
                                 wall
                                 for wall in walls
-                                if wall.door_state == Rubik.DoorState.DOOR
                         )]
         cell = self.dungeon.get_cell(*self.location)
         custom_options = [self.CustomOption(str(i + len(go_options) + len(look_options) + 1),
