@@ -15,7 +15,7 @@ def create_pyraminx():
     rgb_b.description = 'the left wing of the sun phoenix like rays of gold'
     rgb_y = rgb.wall_with_direction(YELLOW.vector)
     rgb_y.door = True
-    rgb_y.description = 'a wheel at the center, made of dark glass studded with clear crystals'
+    rgb_y.description = 'a wheel at the center, made of dark glass studded with clear crystals t: 1'
     rgb.custom_actions += [__create_ccw_rotation(pyraminx, 0),
                            __create_cw_rotation(pyraminx, 0)]
     rgb.name = '1.rgb'
@@ -137,7 +137,7 @@ def create_pyraminx():
     rgy_b = rgy.wall_with_direction(BLUE.vector)
     rgy_b.door = True
     rgy_y = rgy.wall_with_direction(YELLOW.vector)
-    rgy_y.description = 'a wheel in the far corner'
+    rgy_y.description = 'a wheel in the far corner t: 3'
     rgy.custom_actions += [__create_ccw_rotation(pyraminx, 1),
                            __create_cw_rotation(pyraminx, 1)]
     rgy.name = '10.rgy'
@@ -190,7 +190,7 @@ def create_pyraminx():
     gby_r = gby.wall_with_direction(RED.vector)
     gby_r.door = True
     gby_y = gby.wall_with_direction(YELLOW.vector)
-    gby_y.description = 'a wheel in the far corner'
+    gby_y.description = 'a wheel in the far corner t: 4'
     gby.custom_actions += [__create_ccw_rotation(pyraminx, 2),
                            __create_cw_rotation(pyraminx, 2)]
     gby.name = '15.gby'
