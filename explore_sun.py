@@ -7,7 +7,7 @@ from color_direction import *
 def main():
     pyraminx = create_pyraminx()
     configure_initial(pyraminx)
-    explore(pyraminx, array((2, 0, 0)), ANTI_RED.vector)
+    explore(pyraminx, array((2, 0, 0)), ANTI_RED.vector, review=True)
 
 if __name__ == '__main__':
     main()

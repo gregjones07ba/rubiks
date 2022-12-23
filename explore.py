@@ -8,9 +8,10 @@ class ExploreInteract:
     DATA_FILE_PATH = 'rubik_history.txt'
     GOD_PREFIX = 'g:'
     
-    def __init__(self, rubik, initial_location, initial_direction, vertical):
+    def __init__(self, rubik, initial_location, initial_direction, vertical, review):
         self.rubik = rubik
         self.explorer = Explorer(self.rubik, initial_location, initial_direction, vertical)
+        self.review = review
         self.options = []
         self.in_file = None
         self.out_file = None
@@ -236,6 +237,8 @@ class ExploreInteract:
                              for option in self.options
                              if option.name == command ]
         if selected_options:
+            if self.review:
+                print('{num}. {desc}'.format(num=selected_options[0].name, desc=self.__describe_option(selected_options[0])))
             result = selected_options[0].execute()
             if result:
                 self.__show_result(result)
@@ -270,6 +273,6 @@ class ExploreInteract:
         wall = cell.wall_with_direction(self.explorer.direction)
         wall.description += " t: " + tag
 
-def explore(rubik, initial_location, initial_direction, vertical=RGB.vector):
-    interact = ExploreInteract(rubik, initial_location, initial_direction, vertical)
+def explore(rubik, initial_location, initial_direction, vertical=RGB.vector, review=False):
+    interact = ExploreInteract(rubik, initial_location, initial_direction, vertical, review)
     interact.run()
