@@ -250,6 +250,8 @@ class ExploreInteract:
             # no-op; description will be printed in next step
             return True
         elif command.startswith(self.GOD_PREFIX):
+            if self.review:
+                print(command)
             exec(command[len(self.GOD_PREFIX):])
             return True
         else:
