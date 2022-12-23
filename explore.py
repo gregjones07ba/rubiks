@@ -8,19 +8,23 @@ class ExploreInteract:
     DATA_FILE_PATH = 'rubik_history.txt'
     GOD_PREFIX = 'g:'
     
-    def __init__(self, rubik, initial_location, initial_direction, vertical):
+    def __init__(self, rubik, initial_location, initial_direction, vertical, review):
         self.rubik = rubik
         self.explorer = Explorer(self.rubik, initial_location, initial_direction, vertical)
+        self.review = review
         self.options = []
         self.in_file = None
         self.out_file = None
+        self.__load_mode = False
         self.__suppress_show = False
 
     def __try_load(self):
+        self.__load_mode = True
         try:
             self.__load()
         except FileNotFoundError:
             pass
+        self.__load_mode = False
 
     def __load(self):
         with open(self.DATA_FILE_PATH, 'r') as self.in_file:
@@ -52,7 +56,7 @@ class ExploreInteract:
         return self.__act()
 
     def __maybe_show(self):
-        if not self.__suppress_show:
+        if not (self.__suppress_show or self.__load_mode):
             self.__show()
         self.__suppress_show = False
         
@@ -236,10 +240,13 @@ class ExploreInteract:
                              for option in self.options
                              if option.name == command ]
         if selected_options:
+            if self.review:
+                self.__show_option(selected_options[0])
             result = selected_options[0].execute()
             if result:
-                self.__show_result(result)
-                self.__suppress_show = True
+                if not self.__load_mode:
+                    self.__show_result(result)
+                    self.__suppress_show = True
             return True
         elif command in ['q', 'quit', 'exit']:
             return False
@@ -247,10 +254,13 @@ class ExploreInteract:
             # no-op; description will be printed in next step
             return True
         elif command.startswith(self.GOD_PREFIX):
+            if self.review:
+                print(command)
             exec(command[len(self.GOD_PREFIX):])
             return True
         else:
-            print("Unrecognized command")
+            if not self.__load_mode:
+                print("Unrecognized command")
             return True
 
     def __show_result(self, result):
@@ -270,6 +280,6 @@ class ExploreInteract:
         wall = cell.wall_with_direction(self.explorer.direction)
         wall.description += " t: " + tag
 
-def explore(rubik, initial_location, initial_direction, vertical=RGB.vector):
-    interact = ExploreInteract(rubik, initial_location, initial_direction, vertical)
+def explore(rubik, initial_location, initial_direction, vertical=RGB.vector, review=False):
+    interact = ExploreInteract(rubik, initial_location, initial_direction, vertical, review)
     interact.run()
