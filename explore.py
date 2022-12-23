@@ -15,13 +15,16 @@ class ExploreInteract:
         self.options = []
         self.in_file = None
         self.out_file = None
+        self.__load_mode = False
         self.__suppress_show = False
 
     def __try_load(self):
+        self.__load_mode = True
         try:
             self.__load()
         except FileNotFoundError:
             pass
+        self.__load_mode = False
 
     def __load(self):
         with open(self.DATA_FILE_PATH, 'r') as self.in_file:
@@ -53,7 +56,7 @@ class ExploreInteract:
         return self.__act()
 
     def __maybe_show(self):
-        if not self.__suppress_show:
+        if not (self.__suppress_show or self.__load_mode):
             self.__show()
         self.__suppress_show = False
         
@@ -241,8 +244,9 @@ class ExploreInteract:
                 print('{num}. {desc}'.format(num=selected_options[0].name, desc=self.__describe_option(selected_options[0])))
             result = selected_options[0].execute()
             if result:
-                self.__show_result(result)
-                self.__suppress_show = True
+                if not self.__load_mode:
+                    self.__show_result(result)
+                    self.__suppress_show = True
             return True
         elif command in ['q', 'quit', 'exit']:
             return False
@@ -255,7 +259,8 @@ class ExploreInteract:
             exec(command[len(self.GOD_PREFIX):])
             return True
         else:
-            print("Unrecognized command")
+            if not self.__load_mode:
+                print("Unrecognized command")
             return True
 
     def __show_result(self, result):
