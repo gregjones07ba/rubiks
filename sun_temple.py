@@ -15,10 +15,10 @@ def create_pyraminx():
     rgb_b.description = 'the left wing of the sun phoenix like rays of gold'
     rgb_y = rgb.wall_with_direction(YELLOW.vector)
     rgb_y.door = True
-    rgb_y.description = 'a wheel at the center, made of dark glass studded with clear crystals t: 1'
+    rgb_y.description = 'a wheel at the center, made of dark glass studded with clear crystals'
     rgb.custom_actions += [__create_ccw_rotation(pyraminx, 0),
                            __create_cw_rotation(pyraminx, 0)]
-    rgb.name = '1.rgb'
+    rgb.name = '1.rgb (1)'
 
     rb = pyraminx.get_cell(2, 0, 0)
     rb_r = rb.wall_with_direction(RED.vector)
@@ -29,8 +29,8 @@ def create_pyraminx():
     rb_b = rb.wall_with_direction(BLUE.vector)
     rb_b.description = 'a mural of the Thunder Phoenix, perched atop a silver tower'
     rb_y = rb.wall_with_direction(YELLOW.vector)
-    rb_y.description = 'a drow child tossing the Snake key sitting on one of three stone pillars on the edge of a circular mosaic of Tiamat enclosed by rough waters t: 8'
-    rb.name = '2.rb'
+    rb_y.description = 'a drow child tossing the Snake key sitting on one of three stone pillars on the edge of a circular mosaic of Tiamat enclosed by rough waters'
+    rb.name = '2.rb (8)'
 
     rgb_octa = pyraminx.get_cell(1, 1, 1)
     rgb_octa_ay = rgb_octa.wall_with_direction(ANTI_YELLOW.vector)
@@ -52,8 +52,8 @@ def create_pyraminx():
     rgb_octa_b = rgb_octa.wall_with_direction(BLUE.vector)
     rgb_octa_b.description = 'the Milky Way inlaid in mother of pearl'
     rgb_octa_y = rgb_octa.wall_with_direction(YELLOW.vector)
-    rgb_octa_y.description = 'a mosaic map of the earth. There is a pyramid with a coin slot and a lever. t: 10'
-    rgb_octa.name = '3.rgb8'
+    rgb_octa_y.description = 'a mosaic map of the earth. There is a pyramid with a coin slot and a lever.'
+    rgb_octa.name = '3.rgb8 (10)'
 
     rg = pyraminx.get_cell(0, 2, 0)
     rg_r = rg.wall_with_direction(RED.vector)
@@ -64,8 +64,8 @@ def create_pyraminx():
     rg_b.door = True
     rg_y = rg.wall_with_direction(YELLOW.vector)
     rg_y.door = True
-    rg_y.description = 'a mosaic of the ocean meeting the sky. There are nyankas with the Spider key t: 9'
-    rg.name = '4.rg'
+    rg_y.description = 'a mosaic of the ocean meeting the sky. There are nyankas with the Spider key'
+    rg.name = '4.rg (9)'
 
     gb = pyraminx.get_cell(0, 0, 2)
     gb_r = gb.wall_with_direction(RED.vector)
@@ -77,16 +77,16 @@ def create_pyraminx():
     gb_y = gb.wall_with_direction(YELLOW.vector)
     gb_y.description = 'a mosaic of the waters receding in an arc against Tiamat, her tentacles trying to hold them back'
     gb_y.door = True
-    gb.name = '5.gb'
+    gb.name = '5.gb (12)'
 
     rby = pyraminx.get_cell(2, -2, -2)
     rby_g = rby.wall_with_direction(GREEN.vector)
     rby_g.door = True
     rby_y = rby.wall_with_direction(YELLOW.vector)
-    rby_y.description = 'a wheel in the far corner t: 2'
+    rby_y.description = 'a wheel in the far corner'
     rby.custom_actions += [__create_ccw_rotation(pyraminx, 3),
                            __create_cw_rotation(pyraminx, 3)]
-    rby.name = '6.rby'
+    rby.name = '6.rby (2)'
 
     rby_octa = pyraminx.get_cell(1, -1, -1)
     rby_octa_ay = rby_octa.wall_with_direction(ANTI_YELLOW.vector)
@@ -99,8 +99,8 @@ def create_pyraminx():
     rby_octa_ag.door = True
     rby_octa_ag.description = 'a door with an indentation in the shape of an 8-pointed asterisk. Above it is a window of ice revealing a rapier behind it. Clear crystal stairs to each other door'
     rby_octa_y = rby_octa.wall_with_direction(YELLOW.vector)
-    rby_octa_y.description = 'angular arches of clear crystal t: 6'
-    rby_octa.name = '7.rby8'
+    rby_octa_y.description = 'angular arches of clear crystal'
+    rby_octa.name = '7.rby8 (6)'
 
     ry = pyraminx.get_cell(0, 0, -2)
     ry_r = ry.wall_with_direction(RED.vector)
@@ -112,8 +112,8 @@ def create_pyraminx():
     ry_b.door = True
     ry_b.description = 'the left half of a colossal granite sculpture of a flightless bird seated'
     ry_y = ry.wall_with_direction(YELLOW.vector)
-    ry_y.description = 'irregular, natural stone slabs. There are nyankas with the Frog key t: 11'
-    ry.name = '8.ry'
+    ry_y.description = 'irregular, natural stone slabs. There are nyankas with the Frog key'
+    ry.name = '8.ry (11)'
 
     rgy_octa = pyraminx.get_cell(-1, 1, -1)
     rgy_octa_ay = rgy_octa.wall_with_direction(ANTI_YELLOW.vector)
@@ -137,10 +137,10 @@ def create_pyraminx():
     rgy_b = rgy.wall_with_direction(BLUE.vector)
     rgy_b.door = True
     rgy_y = rgy.wall_with_direction(YELLOW.vector)
-    rgy_y.description = 'a wheel in the far corner t: 3'
+    rgy_y.description = 'a wheel in the far corner'
     rgy.custom_actions += [__create_ccw_rotation(pyraminx, 1),
                            __create_cw_rotation(pyraminx, 1)]
-    rgy.name = '10.rgy'
+    rgy.name = '10.rgy (3)'
 
     core = pyraminx.get_cell(0, 0, 0)
     core.name = '11.core'
@@ -156,7 +156,7 @@ def create_pyraminx():
     by_b.description = 'a rectangular door. A semisphere with a map of Solasta'
     by_y = by.wall_with_direction(YELLOW.vector)
     by_y.description = 'slabs of meteoritic iron. There are nyankas with the Lizard key, and the aboleth will try to sneak attack. The room is full of water'
-    by.name = '12.by'
+    by.name = '12.by (14)'
 
     gby_octa = pyraminx.get_cell(-1, -1, 1)
     gby_octa_ab = gby_octa.wall_with_direction(ANTI_BLUE.vector)
@@ -172,7 +172,7 @@ def create_pyraminx():
     gby_octa_ay.description = 'three bells hung from the corners. A chest suspended in a bell in the center of the room'
     gby_octa_y = gby_octa.wall_with_direction(YELLOW.vector)
     gby_octa_y.description = 'delicate gothic arches of purple porphyry supporting the staircases. The room is full of water'
-    gby_octa.name = '13.gby8'
+    gby_octa.name = '13.gby8 (13)'
 
     gy = pyraminx.get_cell(-2, 0, 0)
     gy_r = gy.wall_with_direction(RED.vector)
@@ -183,17 +183,17 @@ def create_pyraminx():
     gy_b.door = True
     gy_b.description = 'the right horn of a crescent moon'
     gy_y = gy.wall_with_direction(YELLOW.vector)
-    gy_y.description = 'slabs of black lava rock t: 5'
-    gy.name = '14.gy'
+    gy_y.description = 'slabs of black lava rock'
+    gy.name = '14.gy (5)'
 
     gby = pyraminx.get_cell(-2, -2, 2)
     gby_r = gby.wall_with_direction(RED.vector)
     gby_r.door = True
     gby_y = gby.wall_with_direction(YELLOW.vector)
-    gby_y.description = 'a wheel in the far corner t: 4'
+    gby_y.description = 'a wheel in the far corner'
     gby.custom_actions += [__create_ccw_rotation(pyraminx, 2),
                            __create_cw_rotation(pyraminx, 2)]
-    gby.name = '15.gby'
+    gby.name = '15.gby (4)'
     
     return pyraminx
 
