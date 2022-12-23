@@ -241,7 +241,7 @@ class ExploreInteract:
                              if option.name == command ]
         if selected_options:
             if self.review:
-                print('{num}. {desc}'.format(num=selected_options[0].name, desc=self.__describe_option(selected_options[0])))
+                self.__show_option(selected_options[0])
             result = selected_options[0].execute()
             if result:
                 if not self.__load_mode:
