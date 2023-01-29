@@ -169,9 +169,8 @@ def create_pyraminx():
     gby_octa_ag.door = True
     gby_octa_ag.description = 'a staircase leading to the side door'
     gby_octa_ay = gby_octa.wall_with_direction(ANTI_YELLOW.vector)
-    gby_octa_ay.description = 'three bells hung from the corners. A chest suspended in a bell in the center of the room'
+    gby_octa_ay.description = 'three bells hung from the corners. A chest suspended in a bell in the center of the room. actually there''s a door, but not on the move options'
     gby_octa_y = gby_octa.wall_with_direction(YELLOW.vector)
-    gby_octa_y.door = True
     gby_octa_y.description = 'delicate gothic arches of purple porphyry supporting the staircases. The room is full of water'
     gby_octa.name = '13.gby8 (13)'
 
