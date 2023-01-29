@@ -1,0 +1,16 @@
+g:self.explorer.location
+g:print(self.explorer.location)
+g:self.goto(2, 2, 2)
+7
+g:self.goto(2, -2, -2)
+g:self.goto(-2, 2, -2)
+7
+g:self.goto(2, 0, 0)
+1
+1
+1
+1
+2
+1
+1
+1
